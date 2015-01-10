@@ -7,9 +7,13 @@
 //
 
 #include <iostream>
+#include "Set_test.h"
+#include "PL_test.h"
+#include "Nat.h"
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+    SetTest::test();
+    PLTest::test();
+    
     return 0;
 }
