@@ -15,7 +15,7 @@ class Assumptions {};
 
 template <typename ... As>
 struct MakeAssumptions {
-    using type = Reduction(MakeAssumptions<Reduction(MakeUnique<As ...>)>);
+    using type = Reduction<MakeAssumptions<MakeUnique<As ...>>>;
 };
 
 template <typename ... As>

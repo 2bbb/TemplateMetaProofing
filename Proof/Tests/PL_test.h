@@ -8,10 +8,9 @@
 
 #pragma once
 
-#include <iostream>
 #include "PL.h"
 
-namespace PLTest {
+namespace {
     Proposition(P);
     Proposition(Q);
 

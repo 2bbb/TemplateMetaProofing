@@ -9,14 +9,10 @@
 #pragma once
 
 #include "Set.h"
-
-#include <sstream>
-#include <type_traits>
-
 #include "PrintDebugUtilities.h"
 
 template <typename ... As>
 std::ostream &operator<<(std::ostream &os, const Set<As ...> &) {
-    os << "{" << Reduction(Set<As ...>)() << "}";
+    os << "{" << Reduction<Set<As ...>>() << "}";
     return os;
 }

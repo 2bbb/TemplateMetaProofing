@@ -8,6 +8,8 @@
 
 #pragma once
 
+#include <iostream>
+
 namespace {
     template <typename T, typename NameGetter>
     class has_member_impl {
@@ -36,7 +38,7 @@ namespace {
 }
 
 template <typename P>
-Reduction(std::enable_if<has_val<P>::value, std::ostream &>) operator<<(std::ostream &os, const P &) {
+Reduction<std::enable_if<has_val<P>::value, std::ostream &>> operator<<(std::ostream &os, const P &) {
     os << P::val();
     return os;
 }
@@ -54,5 +56,17 @@ std::ostream &operator<<(std::ostream &os, const TypeHolder<A> &) {
 }
 
 std::ostream &operator<<(std::ostream &os, const TypeHolder<> &) {
+    return os;
+}
+
+template <typename A, typename B>
+std::ostream &operator<<(std::ostream &os, const Pair<A, B> &) {
+    os << "(" << A() << ", " << B() << ")";
+    return os;
+}
+
+template <typename ... As>
+std::ostream &operator<<(std::ostream &os, const Tuple<As ...> &) {
+    os << "(" << TypeHolder<As ...>() << ")";
     return os;
 }
