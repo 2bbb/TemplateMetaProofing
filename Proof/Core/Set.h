@@ -8,8 +8,10 @@
 
 #pragma once
 
-#include "Utilities.h"
-#include "Constants.h"
+#include "Core/Includes.h"
+
+struct _element {};
+#define Element(name) struct name : public _element { static const char * const val() { return #name; } };
 
 template <typename ... As>
 struct Set {
@@ -166,7 +168,7 @@ namespace {
 
     template <typename A, typename ... As, typename ... Bs>
     struct intersection_impl<Set<A, As ...>, Set<Bs ...>> {
-        Type(Set) type = Union<If<In<A, Set<Bs ...>>, Set<A>, EmptySet>, Reduction<intersection_impl<Set<As ...>, Set<Bs ...>>>>;
+        Type(Set) type = Union<Meta::If<In<A, Set<Bs ...>>, Set<A>, EmptySet>, Reduction<intersection_impl<Set<As ...>, Set<Bs ...>>>>;
     };
 };
 

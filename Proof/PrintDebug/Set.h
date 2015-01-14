@@ -8,8 +8,8 @@
 
 #pragma once
 
-#include "Set.h"
-#include "PrintDebugUtilities.h"
+#include "PrintDebug/Utilities.h"
+#include "Core/Set.h"
 
 template <typename ... As>
 std::ostream &operator<<(std::ostream &os, const Set<As ...> &) {

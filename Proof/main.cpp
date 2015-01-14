@@ -7,13 +7,16 @@
 //
 
 #include <iostream>
-#include "Set_test.h"
-#include "PL_test.h"
-#include "Nat.h"
+
+#include "Tests/Utilities.h"
+#include "Tests/Set.h"
+#include "Tests/PL.h"
+#include "Tests/Nat.h"
 
 int main(int argc, const char * argv[]) {
     SetTest::test();
     PLTest::test();
+    NatTest::test();
     
     return 0;
 }

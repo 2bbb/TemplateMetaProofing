@@ -8,7 +8,3 @@
 
 #pragma once
 
-template <typename Name, typename ...>
-struct Proposition {};
-
-#define AnonymousVariable() struct {}

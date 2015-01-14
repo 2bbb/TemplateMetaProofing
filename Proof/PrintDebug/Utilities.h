@@ -10,6 +10,14 @@
 
 #include <iostream>
 
+#include "PrintDebug/Set.h"
+#include "PrintDebug/Assumptions.h"
+#include "PrintDebug/Formula.h"
+#include "PrintDebug/PL.h"
+#include "PrintDebug/FOL.h"
+#include "PrintDebug/Eq.h"
+#include "PrintDebug/Nat.h"
+
 namespace {
     template <typename T, typename NameGetter>
     class has_member_impl {

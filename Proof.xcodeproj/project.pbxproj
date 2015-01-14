@@ -23,6 +23,31 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9550F5C91A669A5B00DE8928 /* Nat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Nat.h; sourceTree = "<group>"; };
+		9550F5CA1A669A5B00DE8928 /* PL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PL.h; sourceTree = "<group>"; };
+		9550F5CB1A669A5B00DE8928 /* Set.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Set.h; sourceTree = "<group>"; };
+		9550F5CC1A669A5B00DE8928 /* Utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		9550F5CE1A669B4E00DE8928 /* Assumptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Assumptions.h; sourceTree = "<group>"; };
+		9550F5CF1A669B4E00DE8928 /* Eq.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Eq.h; sourceTree = "<group>"; };
+		9550F5D01A669B4E00DE8928 /* FOL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FOL.h; sourceTree = "<group>"; };
+		9550F5D11A669B4E00DE8928 /* Formula.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Formula.h; sourceTree = "<group>"; };
+		9550F5D21A669B4E00DE8928 /* Nat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Nat.h; sourceTree = "<group>"; };
+		9550F5D31A669B4E00DE8928 /* PL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PL.h; sourceTree = "<group>"; };
+		9550F5D41A669B4E00DE8928 /* Utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		9550F5D51A669B4E00DE8928 /* Set.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Set.h; sourceTree = "<group>"; };
+		9550F5D71A669B8F00DE8928 /* Assumptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Assumptions.h; sourceTree = "<group>"; };
+		9550F5D81A669B8F00DE8928 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		9550F5D91A669B8F00DE8928 /* Eq.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Eq.h; sourceTree = "<group>"; };
+		9550F5DA1A669B8F00DE8928 /* FOL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FOL.h; sourceTree = "<group>"; };
+		9550F5DB1A669B8F00DE8928 /* Formula.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Formula.h; sourceTree = "<group>"; };
+		9550F5DC1A669B8F00DE8928 /* Includes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Includes.h; sourceTree = "<group>"; };
+		9550F5DD1A669B8F00DE8928 /* Macros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
+		9550F5DE1A669B8F00DE8928 /* Meta.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Meta.h; sourceTree = "<group>"; };
+		9550F5DF1A669B8F00DE8928 /* Nat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Nat.h; sourceTree = "<group>"; };
+		9550F5E01A669B8F00DE8928 /* PL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PL.h; sourceTree = "<group>"; };
+		9550F5E11A669B8F00DE8928 /* Proposition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Proposition.h; sourceTree = "<group>"; };
+		9550F5E21A669B8F00DE8928 /* Set.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Set.h; sourceTree = "<group>"; };
+		9550F5E31A669B8F00DE8928 /* Utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		95CCFE131A527918003D5239 /* Proof */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Proof; sourceTree = BUILT_PRODUCTS_DIR; };
 		95CCFE161A527918003D5239 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -38,6 +63,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9550F5C81A669A5B00DE8928 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				9550F5CC1A669A5B00DE8928 /* Utilities.h */,
+				9550F5CB1A669A5B00DE8928 /* Set.h */,
+				9550F5C91A669A5B00DE8928 /* Nat.h */,
+				9550F5CA1A669A5B00DE8928 /* PL.h */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		9550F5CD1A669B4E00DE8928 /* PrintDebug */ = {
+			isa = PBXGroup;
+			children = (
+				9550F5D41A669B4E00DE8928 /* Utilities.h */,
+				9550F5CE1A669B4E00DE8928 /* Assumptions.h */,
+				9550F5CF1A669B4E00DE8928 /* Eq.h */,
+				9550F5D01A669B4E00DE8928 /* FOL.h */,
+				9550F5D11A669B4E00DE8928 /* Formula.h */,
+				9550F5D21A669B4E00DE8928 /* Nat.h */,
+				9550F5D31A669B4E00DE8928 /* PL.h */,
+				9550F5D51A669B4E00DE8928 /* Set.h */,
+			);
+			path = PrintDebug;
+			sourceTree = "<group>";
+		};
+		9550F5D61A669B8F00DE8928 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				9550F5DC1A669B8F00DE8928 /* Includes.h */,
+				9550F5DD1A669B8F00DE8928 /* Macros.h */,
+				9550F5D81A669B8F00DE8928 /* Constants.h */,
+				9550F5E31A669B8F00DE8928 /* Utilities.h */,
+				9550F5DE1A669B8F00DE8928 /* Meta.h */,
+				9550F5E21A669B8F00DE8928 /* Set.h */,
+				9550F5D71A669B8F00DE8928 /* Assumptions.h */,
+				9550F5E11A669B8F00DE8928 /* Proposition.h */,
+				9550F5DB1A669B8F00DE8928 /* Formula.h */,
+				9550F5E01A669B8F00DE8928 /* PL.h */,
+				9550F5DA1A669B8F00DE8928 /* FOL.h */,
+				9550F5D91A669B8F00DE8928 /* Eq.h */,
+				9550F5DF1A669B8F00DE8928 /* Nat.h */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
 		95CCFE0A1A527918003D5239 = {
 			isa = PBXGroup;
 			children = (
@@ -58,6 +129,9 @@
 			isa = PBXGroup;
 			children = (
 				95CCFE161A527918003D5239 /* main.cpp */,
+				9550F5D61A669B8F00DE8928 /* Core */,
+				9550F5CD1A669B4E00DE8928 /* PrintDebug */,
+				9550F5C81A669A5B00DE8928 /* Tests */,
 			);
 			path = Proof;
 			sourceTree = "<group>";
@@ -203,6 +277,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "Proof/**";
 			};
 			name = Debug;
 		};
@@ -210,6 +285,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "Proof/**";
 			};
 			name = Release;
 		};
@@ -232,6 +308,7 @@
 				95CCFE1C1A527918003D5239 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

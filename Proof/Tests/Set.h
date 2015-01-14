@@ -8,9 +8,7 @@
 
 #pragma once
 
-#include "Set.h"
-
-#define Element(name) struct name { static const char * const val() { return #name; } };
+#include "Core/Set.h"
 
 namespace {
     Element(A);
@@ -48,29 +46,26 @@ namespace {
     Assert<In<A, Z>, False> _14;
 };
 
-#include "Set_PrintDebug.h"
+#include "PrintDebug/Set.h"
 
 namespace SetTest {
     void test() {
-        std::cout << XorY() << std::endl;
-        std::cout << XandY() << std::endl;
-        std::cout << YandZ() << std::endl;
+        std::cout   << XorY() << std::endl
+                    << XandY() << std::endl
+                    << YandZ() << std::endl
+                    << std::endl
         
-        std::cout << std::endl;
+                    << XprodY() << std::endl
+                    << ZprodZ() << std::endl
+                    << std::endl
         
-        std::cout << XprodY() << std::endl;
-        std::cout << ZprodZ() << std::endl;
+                    << Mapped() << std::endl
+                    << std::endl
         
-        std::cout << std::endl;
-        
-        std::cout << Mapped() << std::endl;
-        
-        std::cout << std::endl;
-        
-        std::cout << In<A, X>() << std::endl;
-        std::cout << In<E, X>() << std::endl;
-        std::cout << In<A, Z>() << std::endl;
-        std::cout << In<E, Y>() << std::endl;
-        std::cout << std::endl;
+                    << In<A, X>() << std::endl
+                    << In<E, X>() << std::endl
+                    << In<A, Z>() << std::endl
+                    << In<E, Y>() << std::endl
+                    << std::endl;
     }
 };

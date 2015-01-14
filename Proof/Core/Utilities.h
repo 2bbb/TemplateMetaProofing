@@ -8,10 +8,8 @@
 
 #pragma once
 
-#include "Constants.h"
-
-#define Type(...) using
-#define Function(...) using
+#include "Core/Constants.h"
+#include "Core/Macros.h"
 
 template <typename, typename>
 struct Assert;
@@ -19,70 +17,51 @@ struct Assert;
 template <typename A>
 struct Assert<A, A> {};
 
+template <typename>
+struct Enable;
+
+template <>
+struct Enable<True> {};
+
+//namespace {
+//    template <typename T>
+//    struct reduction_impl {
+//        using type = T;
+//    };
+//    
+//    template <typename T>
+//    struct reduction_impl_template {
+//        template <typename ... Ts>
+//        using type = typename T::template type<Ts ...>;
+//    };
+//    
+////    template <typename T, typename ... Ts, template <typename ...> class F = reduction_impl_template<T, Ts ...>>
+////    struct reduction_impl {
+////        using type = typename T::type;
+////    };
+//};
+
 template <typename T>
 using Reduction = typename T::type;
 
 template <typename T>
 using Eval = typename T::value;
 
-namespace Meta {
-    namespace {
-        template <typename A, typename B>
-        struct equal_impl {
-            Type(Bool) type = False;
-        };
-        
-        template <typename A>
-        struct equal_impl<A, A> {
-            Type(Bool) type = True;
-        };
-        
-        template <typename, typename>
-        struct and_impl {
-            Type(Bool) type = False;
-        };
-        
-        template <>
-        struct and_impl<True, True> {
-            Type(Bool) type = True;
-        };
-        
-        template <typename, typename>
-        struct or_impl {
-            Type(Bool) type = True;
-        };
-        
-        template <>
-        struct or_impl<False, False> {
-            Type(Bool) type = False;
-        };
-    };
-    
-    template <typename A, typename B>
-    using Equal = Reduction<equal_impl<A, B>>;
-    
-    template <typename A, typename B>
-    using And = Reduction<and_impl<A, B>>;
-    
-    template <typename A, typename B>
-    using Or = Reduction<or_impl<A, B>>;
-};
-
 template <typename ...>
 struct TypeHolder {};
 
 namespace {
     template <template <typename ...> class Template, typename A>
-    struct make_from_typeholder_impl;
+    struct rewrap_typeholder_impl;
 
     template <template <typename ...> class Template, typename ... As>
-    struct make_from_typeholder_impl<Template, TypeHolder<As ...>> {
+    struct rewrap_typeholder_impl<Template, TypeHolder<As ...>> {
         Type(NewTemplateType) type = Template<As ...>;
     };
 };
 
 template <template <typename ...> class Template, typename A>
-Function() RewrapFromTypeHolder = Reduction<make_from_typeholder_impl<Template, A>>;
+Function() RewrapTypeHolder = Reduction<rewrap_typeholder_impl<Template, A>>;
 
 struct Null {};
 
@@ -174,19 +153,14 @@ namespace {
 template <typename ... As>
 using MakeUnique = Flatten<Reduction<make_unique_impl<As ...>>>;
 
-namespace {
-    template <typename Condition, typename Then, typename Else> struct if_impl;
+//template <template <typename> class F, template <typename> class G>
+//struct compositie_impl {
+//    template <typename T>
+//    using type = F<G<T>>;
+//};
 
-    template <typename Then, typename Else>
-    struct if_impl<True, Then, Else> {
-        Type(Value) type = Then;
-    };
-
-    template <typename Then, typename Else>
-    struct if_impl<False, Then, Else> {
-        Type(Value) type = Else;
-    };
+template <typename X, template <typename ...> class F>
+struct bind_impl {
+    template <typename ... As>
+    using type = F<X, As ...>;
 };
-
-template <typename Condition, typename Then, typename Else>
-Function(Bool->X->X->X) If = Reduction<if_impl<Condition, Then, Else>>;
