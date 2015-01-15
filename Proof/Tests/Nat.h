@@ -33,11 +33,9 @@ namespace NatTest {
         return proof;
     }
     
-    template <typename M>
+    template <typename M, typename X = M>
     auto proofOf_m_plus_0_is_0_plus_m()
     -> Theorem<ForAll<M, Eq<Add<M, Zero>, Add<Zero, M>>>> {
-//        Proposition(X);
-        using X = M;
         auto proof_of_base_step = Axiom::Equality::reflexive<Add<Zero, Zero>>();
         std::cout << "base_step : " << proof_of_base_step << std::endl;
         
