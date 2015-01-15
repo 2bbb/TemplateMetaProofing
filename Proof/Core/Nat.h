@@ -94,9 +94,7 @@ namespace Axiom {
         // induction
         // P(0) => P(m) => P(s(m)) => ∀m.P(m)
         template <typename X, typename Prop, typename K, typename ... As, typename ... Bs>
-        static auto induction(const X &,
-                              const Prop &,
-                              const Formula<Substitute<Prop, X, Nat::Zero>, Assumptions<As ...>> &,
+        static auto induction(const Formula<Substitute<Prop, X, Nat::Zero>, Assumptions<As ...>> &,
                               const Formula<Imp<Substitute<Prop, X, K>, Substitute<Prop, X, Nat::Suc<K>>>, Assumptions<Bs ...>> &)
         -> Formula<ForAll<X, Prop>, MakeAssumptions<As ..., Bs ...>> {
             return Formula<ForAll<X, Prop>, MakeAssumptions<As ..., Bs ...>>();

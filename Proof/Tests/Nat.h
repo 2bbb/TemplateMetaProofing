@@ -35,23 +35,23 @@ namespace NatTest {
     
     template <typename M>
     auto proofOf_m_plus_0_is_0_plus_m()
-//    -> Theorem<ForAll<M, Eq<Add<M, Zero>, Add<Zero, M>>>> {
-    -> void {
-        Proposition(X);
+    -> Theorem<ForAll<M, Eq<Add<M, Zero>, Add<Zero, M>>>> {
+//        Proposition(X);
+        using X = M;
         auto proof_of_base_step = Axiom::Equality::reflexive<Add<Zero, Zero>>();
-        std::cout << proof_of_base_step << std::endl;
+        std::cout << "base_step : " << proof_of_base_step << std::endl;
         
         // {m + 0 = 0 + m} |= m + 0 = 0 + m
-        auto proof2 = Axiom::PL::assume<Eq<Add<M, Zero>, Add<Zero, M>>>();
+        auto proof2 = Axiom::PL::assume<Eq<Add<X, Zero>, Add<Zero, X>>>();
         // |= m + 0 = m
-        auto proof3 = Axiom::PA::add_m_0_is_m<M>();
+        auto proof3 = Axiom::PA::add_m_0_is_m<X>();
         // s(m + 0) = s(m)
         auto proof4 = Axiom::PA::eq_suc(proof3);
         // s(m) + 0 = s(m)
-        auto proof5 = Axiom::PA::add_m_0_is_m<Suc<M>>();
+        auto proof5 = Axiom::PA::add_m_0_is_m<Suc<X>>();
         
         // 0 + s(m) = s(0 + m)
-        auto proof6 = Axiom::PA::add_m_sn_is_s_add_m_n<Zero, M>();
+        auto proof6 = Axiom::PA::add_m_sn_is_s_add_m_n<Zero, X>();
         // s(0 + m) = s(m + 0)
         auto proof7 = Axiom::Equality::symmetric(Axiom::PA::eq_suc(proof2));
         // s(0 + m) = s(m)
@@ -63,13 +63,12 @@ namespace NatTest {
         auto proof10 = Axiom::Equality::transitive(proof5, Axiom::Equality::symmetric(proof9));
         
         auto proof_of_induction_step = Axiom::PL::impI(proof10);
-        std::cout << proof_of_induction_step << std::endl;
+        std::cout << "induction_step : " << proof_of_induction_step << std::endl;
         
-//        Theorem<ForAll<X, Eq<Add<M, Zero>, Add<Zero, M>>>> proof
-//            = Axiom::PA::induction(M(),
-//                                   Eq<Add<M, Zero>, Add<Zero, M>>(),
-//                                   proof_of_base_step,
-//                                   proof_of_induction_step);
+        Theorem<ForAll<M, Eq<Add<M, Zero>, Add<Zero, M>>>> proof
+            = Axiom::PA::induction<M, Eq<Add<M, Zero>, Add<Zero, M>>, X>(proof_of_base_step,
+                                   proof_of_induction_step);
+        return proof;
     }
 };
 
@@ -84,8 +83,7 @@ namespace NatTest {
         << Add<Suc<Zero>, Suc<Zero>>() << std::endl
         << std::endl
         << proof_of_1_plus_1_is_2() << std::endl
-        << std::endl;
-        proofOf_m_plus_0_is_0_plus_m<M>();
-//        std::cout << proofOf_m_plus_0_is_0_plus_m<M>() << std::endl;
+        << std::endl
+        << proofOf_m_plus_0_is_0_plus_m<M>() << std::endl;
     }
 };

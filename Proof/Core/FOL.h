@@ -11,20 +11,25 @@
 #include "Core/Includes.h"
 #include "Core/PL.h"
 
+namespace {
+    template<typename P, typename X, typename V>
+    struct substitute_impl {
+        using type = P;
+    };
+    
+    template<typename X, typename V>
+    struct substitute_impl<X, X, V> {
+        using type = V;
+    };
+    
+    template <template <typename ...> class Prop, typename ... Ts, typename X, typename V>
+    struct substitute_impl<Prop<Ts ...>, X, V> {
+        using type = Prop<Reduction<substitute_impl<Ts, X, V>> ...>;
+    };
+};
+
 template<typename P, typename X, typename V>
-struct Substitute {
-    using type = P;
-};
-
-template<typename X, typename V>
-struct Substitute<X, X, V> {
-    using type = V;
-};
-
-template <template <typename ...> class Prop, typename ... Ts, typename X, typename V>
-struct Substitute<Prop<Ts ...>, X, V> {
-    using type = Reduction<Prop<Substitute<Ts ..., X, V>>>;
-};
+using Substitute = Reduction<substitute_impl<P, X, V>>;
 
 template <typename T>
 struct NewType {
