@@ -73,7 +73,7 @@ namespace NatTest {
 #include "PrintDebug/Nat.h"
 
 namespace NatTest {
-    Proposition(M);
+    NaturalNumber(M);
     void test() {
         std::cout
         << Suc<Zero>() << std::endl

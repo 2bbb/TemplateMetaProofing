@@ -12,8 +12,8 @@
 #include "Core/Assumptions.h"
 #include "Core/Formula.h"
 
-struct _proposition {};
-#define Proposition(name) struct name : public _proposition { static const char * const val() { return #name; } };
+struct PropositionType : public type_ {};
+#define Proposition(name) struct name : public PropositionType { static const char * const val() { return #name; } };
 
 template <typename P> class Not {  };
 template <typename P, typename Q> class And { };

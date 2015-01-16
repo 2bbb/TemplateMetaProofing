@@ -23,29 +23,30 @@ struct Enable;
 template <>
 struct Enable<True> {};
 
-//namespace {
-//    template <typename T>
-//    struct reduction_impl {
-//        using type = T;
-//    };
-//    
-//    template <typename T>
-//    struct reduction_impl_template {
-//        template <typename ... Ts>
-//        using type = typename T::template type<Ts ...>;
-//    };
-//    
-////    template <typename T, typename ... Ts, template <typename ...> class F = reduction_impl_template<T, Ts ...>>
-////    struct reduction_impl {
-////        using type = typename T::type;
-////    };
-//};
-
 template <typename T>
 using Reduction = typename T::type;
 
 template <typename T>
 using Eval = typename T::value;
+
+namespace {
+	template <typename D, typename B>
+	struct is_derived_impl {
+		template <typename T>
+		static True check(D &, T);
+		static False check(B &, int);
+		
+		struct util {
+			operator D&();
+			operator B&() const;
+		};
+		
+		using type = decltype(check(util(), 0));
+	};
+};
+
+template <typename Derived, typename Base>
+using IsDerived = Reduction<is_derived_impl<Derived, Base>>;
 
 template <typename ...>
 struct TypeHolder {};

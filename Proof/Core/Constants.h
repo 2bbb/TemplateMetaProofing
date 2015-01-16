@@ -8,5 +8,8 @@
 
 #pragma once
 
-struct True  { static const char * const val() { return "T"; } };
-struct False { static const char * const val() { return "F"; } };
+struct type_ {};
+
+struct BoolType : public type_ {};
+struct True  : BoolType { static const char * const val() { return "T"; } };
+struct False : BoolType { static const char * const val() { return "F"; } };
