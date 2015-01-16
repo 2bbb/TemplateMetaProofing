@@ -48,6 +48,7 @@
 		9550F5E11A669B8F00DE8928 /* Proposition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Proposition.h; sourceTree = "<group>"; };
 		9550F5E21A669B8F00DE8928 /* Set.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Set.h; sourceTree = "<group>"; };
 		9550F5E31A669B8F00DE8928 /* Utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		9561F1B31A69BCAE0093E1F6 /* Types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
 		95CCFE131A527918003D5239 /* Proof */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Proof; sourceTree = BUILT_PRODUCTS_DIR; };
 		95CCFE161A527918003D5239 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -93,10 +94,11 @@
 			isa = PBXGroup;
 			children = (
 				9550F5DC1A669B8F00DE8928 /* Includes.h */,
-				9550F5DD1A669B8F00DE8928 /* Macros.h */,
 				9550F5D81A669B8F00DE8928 /* Constants.h */,
 				9550F5E31A669B8F00DE8928 /* Utilities.h */,
+				9550F5DD1A669B8F00DE8928 /* Macros.h */,
 				9550F5DE1A669B8F00DE8928 /* Meta.h */,
+				9561F1B31A69BCAE0093E1F6 /* Types.h */,
 				9550F5E21A669B8F00DE8928 /* Set.h */,
 				9550F5D71A669B8F00DE8928 /* Assumptions.h */,
 				9550F5E11A669B8F00DE8928 /* Proposition.h */,
@@ -232,7 +234,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -267,7 +269,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 			};
