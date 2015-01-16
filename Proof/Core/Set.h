@@ -10,11 +10,13 @@
 
 #include "Core/Includes.h"
 
-struct _element {};
-#define Element(name) struct name : public _element { static const char * const val() { return #name; } };
+struct AbstractElementType : public type_ {};
+#define Element(name) struct name : public AbstractElementType { static const char * const val() { return #name; } };
+
+struct SetType : public type_ {};
 
 template <typename ... As>
-struct Set {
+struct Set : SetType {
     using type = MakeUnique<As ...>;
 };
 

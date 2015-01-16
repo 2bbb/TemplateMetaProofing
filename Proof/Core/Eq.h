@@ -1,8 +1,9 @@
 //
-//  ofx1plus1is2Eq.h
+//  Eq.h
+//  Proof
 //
 //  Created by ISHII 2bit on 2014/12/29.
-//
+//  Copyright (c) 2014年 bufferRenaiss. All rights reserved.
 //
 
 #pragma once
