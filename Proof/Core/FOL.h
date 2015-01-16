@@ -78,7 +78,7 @@ using IsFree = is_free_impl<X, P>;
 
 namespace Axiom {
     class FOL {
-        template <typename X, typename Y, typename Prop, typename ... As>
+        template <typename X, typename Y, typename Prop, typename ... As, typename B = Enable<IsFree<Y, Prop>>>
         auto forAllI(const Formula<Substitute<Prop, X, Y>, Assumptions<As ...>> &)
         -> Formula<ForAll<X, Prop>, Assumptions<As ...>> {
             return Formula<ForAll<X, Prop>, Assumptions<As ...>>();
@@ -96,7 +96,7 @@ namespace Axiom {
             return Formula<Exists<X, Prop>, Assumptions<As ...>>();
         }
         
-        template <typename ResultProp, typename X, typename A, typename Prop, typename ... As, typename ... Bs>
+        template <typename ResultProp, typename X, typename A, typename Prop, typename ... As, typename ... Bs, typename Cs = Enable<Reduce<Meta::And, True, Set<IsFree<A, Bs> ...>>>>
         auto existsE(const Formula<Exists<X, Prop>, Assumptions<As ...>> &,
                      const Formula<ResultProp, Assumptions<Substitute<Prop, X, A>, Bs ...>> &)
         -> Formula<ResultProp, MakeAssumptions<As ..., Bs ...>> {
