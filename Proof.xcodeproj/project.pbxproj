@@ -69,8 +69,8 @@
 			children = (
 				9550F5CC1A669A5B00DE8928 /* Utilities.h */,
 				9550F5CB1A669A5B00DE8928 /* Set.h */,
-				9550F5C91A669A5B00DE8928 /* Nat.h */,
 				9550F5CA1A669A5B00DE8928 /* PL.h */,
+				9550F5C91A669A5B00DE8928 /* Nat.h */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -100,8 +100,8 @@
 				9550F5DE1A669B8F00DE8928 /* Meta.h */,
 				9561F1B31A69BCAE0093E1F6 /* Types.h */,
 				9550F5E21A669B8F00DE8928 /* Set.h */,
-				9550F5D71A669B8F00DE8928 /* Assumptions.h */,
 				9550F5E11A669B8F00DE8928 /* Proposition.h */,
+				9550F5D71A669B8F00DE8928 /* Assumptions.h */,
 				9550F5DB1A669B8F00DE8928 /* Formula.h */,
 				9550F5E01A669B8F00DE8928 /* PL.h */,
 				9550F5DA1A669B8F00DE8928 /* FOL.h */,
