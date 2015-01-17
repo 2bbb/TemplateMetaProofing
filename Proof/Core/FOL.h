@@ -12,7 +12,7 @@
 #include "Core/PL.h"
 
 namespace {
-    template<typename P, typename X, typename V>
+    template<typename P, typename X, typename V, typename = AreProps<P>>
     struct substitute_impl {
         using type = P;
     };
@@ -36,8 +36,8 @@ struct NewType {
     using type = NewType;
 };
 
-template <typename X, typename Prop> class ForAll {};
-template <typename X, typename Prop> class Exists {};
+template <typename X, typename Prop> struct ForAll : public PropositionType {};
+template <typename X, typename Prop> struct Exists : public PropositionType {};
 
 namespace {
     template <typename X, typename P>
@@ -72,6 +72,13 @@ namespace {
         using type = Reduction<is_free_impl<X, Prop<Ts ...>>>;
     };
 };
+
+/**
+ *  check variable is free
+ *  @param X Variable
+ *  @param P Proposition
+ *  @return <b>True</b> if X is free in P else <b>False</b>
+ */
 
 template <typename X, typename P>
 using IsFree = is_free_impl<X, P>;
