@@ -1,5 +1,5 @@
 //
-//  Eq.h
+//  Core/Eq.h
 //  Proof
 //
 //  Created by ISHII 2bit on 2014/12/29.

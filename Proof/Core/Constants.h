@@ -1,5 +1,5 @@
 //
-//  Constants.h
+//  Core/Constants.h
 //  Proof
 //
 //  Created by ISHII 2bit on 2015/01/07.

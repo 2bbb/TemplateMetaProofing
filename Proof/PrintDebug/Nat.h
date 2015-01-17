@@ -1,5 +1,5 @@
 //
-//  Nat_PrintDebug.h
+//  PrintDebug/Nat.h
 //  Proof
 //
 //  Created by ISHII 2bit on 2015/01/14.

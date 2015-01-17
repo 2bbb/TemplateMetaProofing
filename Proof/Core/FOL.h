@@ -1,5 +1,5 @@
 //
-//  FOL.h
+//  Core/FOL.h
 //  Proof
 //
 //  Created by ISHII 2bit on 2014/12/31.

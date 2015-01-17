@@ -1,5 +1,5 @@
 //
-//  Formula_PrintDebug.h
+//  PrintDebug/Formula.h
 //  Proof
 //
 //  Created by ISHII 2bit on 2015/01/14.

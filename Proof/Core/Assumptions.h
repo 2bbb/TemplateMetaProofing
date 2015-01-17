@@ -1,5 +1,5 @@
 //
-//  Assumption.h
+//  Core/Assumptions.h
 //  Proof
 //
 //  Created by ISHII 2bit on 2015/01/06.

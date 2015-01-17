@@ -1,5 +1,5 @@
 //
-//  PL_test.cpp
+//  Tests/PL.cpp
 //  Proof
 //
 //  Created by ISHII 2bit on 2015/01/04.

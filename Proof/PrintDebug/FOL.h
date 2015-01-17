@@ -1,5 +1,5 @@
 //
-//  FOL_PrintDebug.h
+//  PrintDebug/FOL.h
 //  Proof
 //
 //  Created by ISHII 2bit on 2015/01/14.
