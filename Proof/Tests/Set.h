@@ -29,9 +29,9 @@ namespace {
     Assert<XandY, Set<A, C>> _02;
     Assert<YandZ, Set<>> _03;
     
-    Assert<Contain<XorY, Set<A, B, C, D, E>>, True> _04;
-    Assert<Contain<Set<A, B, C, D, E>, XorY>, True> _05;
-    Assert<EqualSet<XorY, Set<A, B, C, D, E>>, True> _06;
+    Assert<Contain<XorY, Set<A, B, C, D, E>>, Meta::True> _04;
+    Assert<Contain<Set<A, B, C, D, E>, XorY>, Meta::True> _05;
+    Assert<EqualSet<XorY, Set<A, B, C, D, E>>, Meta::True> _06;
     
     Type(Set) XprodY = Product<X, Y>;
     Type(Set) ZprodZ = Product<Z, Z>;
@@ -40,10 +40,10 @@ namespace {
     Type() tuple_mod = Tuple<A, P>;
     Type() Mapped = Map<tuple_mod, X>;
     
-    Assert<In<A, X>, True> _11;
-    Assert<In<E, X>, False> _12;
-    Assert<In<E, Y>, True> _13;
-    Assert<In<A, Z>, False> _14;
+    Assert<In<A, X>, Meta::True> _11;
+    Assert<In<E, X>, Meta::False> _12;
+    Assert<In<E, Y>, Meta::True> _13;
+    Assert<In<A, Z>, Meta::False> _14;
 };
 
 #include "PrintDebug/Set.h"

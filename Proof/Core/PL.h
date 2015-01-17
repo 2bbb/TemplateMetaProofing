@@ -10,16 +10,8 @@
 
 #include "Core/Includes.h"
 #include "Core/Assumptions.h"
+#include "Proposition.h"
 #include "Core/Formula.h"
-
-struct PropositionType : public type_ {};
-#define Proposition(name) struct name : public PropositionType { static const char * const val() { return #name; } };
-
-template <typename P>
-using IsProp = HasType<P, PropositionType>;
-
-template <typename ... Ps>
-using AreProps = Reduce<Meta::And, True, Map<IsProp, Set<Ps ...>>>;
 
 template <typename P, requires(AreProps<P>)> struct Not : public Requires(PropositionType) {};
 template <typename P, typename Q, requires(AreProps<P, Q>)> struct And : public Requires(PropositionType) {};
@@ -40,21 +32,21 @@ namespace Axiom {
         
         // P, Gamma |- F --> Gamma |- -P
         template <typename P, typename ... Gamma, requires(AreProps<P, Gamma ...>)>
-        static auto notI(const Formula<False, Assumptions<P, Gamma ...>> &)
+        static auto notI(const Formula<Contradiction, Assumptions<P, Gamma ...>> &)
         -> Formula<Not<P>, Assumptions<Gamma ...>>
         {
             fulfill(AreProps<P, Gamma ...>);
             return Formula<Not<P>, Assumptions<Gamma ...>>();
         }
         
-        // Gamma |- P + Delta |- -P --> Gamma, Delta |- False
+        // Gamma |- P + Delta |- -P --> Gamma, Delta |- Contradiction
         template <typename P, typename ... Gamma, typename ... Delta, requires(AreProps<P, Gamma ..., Delta ...>)>
         static auto notE(const Formula<P, Assumptions<Gamma ...>> &,
                          const Formula<Not<P>, Assumptions<Delta ...>> &)
-        -> Formula<False, MakeAssumptions<Gamma ..., Delta ...>>
+        -> Formula<Contradiction, MakeAssumptions<Gamma ..., Delta ...>>
         {
             fulfill(AreProps<P, Gamma ..., Delta ...>);
-            return Formula<False, MakeAssumptions<Gamma ..., Delta ...>>();
+            return Formula<Contradiction, MakeAssumptions<Gamma ..., Delta ...>>();
         }
         
         // Gamma |- P + Delta |- Q --> Gamma, Delta |- P /\ Q

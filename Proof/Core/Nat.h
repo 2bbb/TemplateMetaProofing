@@ -18,7 +18,7 @@ namespace Nat {
     using IsNat = HasType<M, NatType>;
     
     template <typename ... Ms>
-    using AreNats = Reduce<Meta::And, True, Map<IsNat, Set<Ms ...>>>;
+    using AreNats = Reduce<Meta::And, Meta::True, Map<IsNat, Set<Ms ...>>>;
     
     /**
      *  Zero

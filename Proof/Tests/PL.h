@@ -42,7 +42,7 @@ namespace {
     }
     
     auto exampleOfNotE()
-    -> Formula<False, Assumptions<P, Not<P>>>
+    -> Formula<Contradiction, Assumptions<P, Not<P>>>
     {
         using namespace Axiom;
         Proof() proof1 = PL::assume<P>();

@@ -9,9 +9,10 @@
 #pragma once
 
 #include "Core/Includes.h"
+#include "Proposition.h"
 
 template <typename ... As>
-class Assumptions {};
+struct Assumptions : Enable<AreProps<As ...>>{};
 
 namespace {
     template <typename ... As>

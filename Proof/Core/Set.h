@@ -95,7 +95,7 @@ namespace {
     struct in_impl<X, Set<As ...>> {
         template <typename Y>
         using eq_X = Meta::Equal<X, Y>;
-        Type(Bool) type = Reduce<Meta::Or, False, Map<eq_X, Set<As ...>>>;
+        Type(Bool) type = Reduce<Meta::Or, Meta::False, Map<eq_X, Set<As ...>>>;
     };
 };
 
@@ -118,7 +118,7 @@ namespace {
     struct contain_impl<Set<As ...>, Set<Bs ...>> {
         template <typename B>
         using in_map = In<B, Set<Bs ...>>;
-        Type(Bool) type = Reduce<Meta::And, True, Map<in_map, Set<As ...>>>;
+        Type(Bool) type = Reduce<Meta::And, Meta::True, Map<in_map, Set<As ...>>>;
     };
 };
 

@@ -9,6 +9,7 @@
 #pragma once
 
 #include "Core/Utilities.h"
+#include "Core/Meta.h"
 
 template <typename X, typename T>
 using HasType = Meta::And<IsDerived<T, type_>, IsDerived<X, T>>;

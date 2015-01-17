@@ -8,3 +8,16 @@
 
 #pragma once
 
+#include "Includes.h"
+
+struct PropositionType : public type_ {};
+#define Proposition(name) struct name : public PropositionType { static const char * const val() { return #name; } };
+
+template <typename P>
+using IsProp = HasType<P, PropositionType>;
+
+template <typename ... Ps>
+using AreProps = Reduce<Meta::And, Meta::True, Map<IsProp, Set<Ps ...>>>;
+
+struct Tautology : public PropositionType { static const char * const val() { return "Ｔ"; } };
+struct Contradiction : public PropositionType { static const char * const val() { return "⊥"; } };

@@ -10,6 +10,8 @@
 
 struct type_ {};
 
-struct BoolType : public type_ {};
-struct True  : BoolType { static const char * const val() { return "T"; } };
-struct False : BoolType { static const char * const val() { return "F"; } };
+namespace Meta {
+    struct BoolType : public type_ {};
+    struct True  : BoolType { static const char * const val() { return "T"; } };
+    struct False : BoolType { static const char * const val() { return "F"; } };
+}

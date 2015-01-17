@@ -42,24 +42,24 @@ template <typename X, typename Prop> struct Exists : public PropositionType {};
 namespace {
     template <typename X, typename P>
     struct is_free_impl {
-        using type = True;
+        using type = Meta::True;
     };
 
     template <typename X, typename Prop>
     struct is_free_impl<X, ForAll<X, Prop>> {
-        using type = False;
+        using type = Meta::False;
     };
 
     template <typename X, typename Prop>
     struct is_free_impl<X, Exists<X, Prop>> {
-        using type = False;
+        using type = Meta::False;
     };
     
     template <typename X, template <typename ...> class Prop, typename ... Ts>
     struct is_free_impl<X, Prop<Ts ...>> {
         template <typename T>
         using is_free_impl_mod = is_free_impl<X, T>;
-        using type = Reduce<Meta::And, True, Map<is_free_impl_mod, Set<Ts ...>>>;
+        using type = Reduce<Meta::And, Meta::True, Map<is_free_impl_mod, Set<Ts ...>>>;
     };
     
     template <typename X, typename Y, template <typename ...> class Prop, typename ... Ts>
@@ -77,7 +77,7 @@ namespace {
  *  check variable is free
  *  @param X Variable
  *  @param P Proposition
- *  @return <b>True</b> if X is free in P else <b>False</b>
+ *  @return <b>Meta::True</b> if X is free in P else <b>False</b>
  */
 
 template <typename X, typename P>
@@ -103,7 +103,7 @@ namespace Axiom {
             return Formula<Exists<X, Prop>, Assumptions<As ...>>();
         }
         
-        template <typename ResultProp, typename X, typename A, typename Prop, typename ... As, typename ... Bs, typename Cs = Enable<Reduce<Meta::And, True, Set<IsFree<A, Bs> ...>>>>
+        template <typename ResultProp, typename X, typename A, typename Prop, typename ... As, typename ... Bs, typename Cs = Enable<Reduce<Meta::And, Meta::True, Set<IsFree<A, Bs> ...>>>>
         auto existsE(const Formula<Exists<X, Prop>, Assumptions<As ...>> &,
                      const Formula<ResultProp, Assumptions<Substitute<Prop, X, A>, Bs ...>> &)
         -> Formula<ResultProp, MakeAssumptions<As ..., Bs ...>> {

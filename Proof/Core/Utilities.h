@@ -21,7 +21,7 @@ template <typename>
 struct Enable;
 
 template <>
-struct Enable<True> {};
+struct Enable<Meta::True> {};
 
 template <typename T>
 using Reduction = typename T::type;
@@ -33,8 +33,8 @@ namespace {
 	template <typename D, typename B>
 	struct is_derived_impl {
 		template <typename T>
-		static True check(D &, T);
-		static False check(B &, int);
+		static Meta::True check(D &, T);
+        static Meta::False check(B &, int);
 		
 		struct util {
 			operator D&();
