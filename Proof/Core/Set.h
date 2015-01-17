@@ -38,11 +38,6 @@ Function(X->...->X->Set) MakeSet = Reduction<make_set_impl<As ...>>;
 Type(Set) EmptySet = Set<>;
 
 #pragma mark Map
-/**
- *  f: A → B
- *  A: Set
- *  f(A) = {f(a) | a ∈ A}
- */
 
 namespace {
     template <template <typename> class F, typename ... As>
@@ -54,16 +49,16 @@ namespace {
     };
 };
 
+/**
+ *  f(A) = {f(a) | a ∈ A}
+ *  @param F A→B
+ *  @param A Set
+ *  @return Set
+ */
 template <template <typename> class F, typename S>
 Function(Function->Set->Set) Map = Reduction<map_impl<F, S>>;
 
 #pragma mark Reduce
-/**
- *  f: (A, A) → A
- *  init: A
- *  A: Set
- *  f(a, f(b, f(..., init))) (a, b, ... ∈ A)
- */
 
 namespace {
     template <template <typename, typename> class F, typename ... As>
@@ -80,15 +75,17 @@ namespace {
     };
 };
 
+/**
+ *  f(a, f(b, f(..., init))) (a, b, ... ∈ A)
+ *  @param F (T, T) → T
+ *  @param Init element of T
+ *  @param A Set of T
+ *  @return T
+ */
 template <template <typename, typename> class F, typename Init, typename A>
 Function(Function->Value->Set) Reduce = Reduction<reduce_impl<F, Init, A>>;
 
 #pragma mark In
-/**
- *  a: element
- *  A: Set
- *  a ∈ A = True if a ∈ A otherwise False
- */
 
 namespace {
     template <typename X, typename A>
@@ -102,15 +99,16 @@ namespace {
     };
 };
 
+/**
+ *  x ∈ A = True if x ∈ A otherwise False
+ *  @param X element
+ *  @param A Set
+ *  @return Bool
+ */
 template <typename X, typename A>
 Function(X->Set->Bool) In = Reduction<in_impl<X, A>>;
 
 #pragma mark Contain
-/**
- *  A: Set
- *  B: Set
- *  A ⊂ B = True if ∀x, x ∈ B, otherwise False
- */
 
 namespace {
     template <typename A, typename B>
@@ -124,16 +122,16 @@ namespace {
     };
 };
 
+/**
+ *  A ⊂ B = True if ∀x.(x ∈ B), otherwise False
+ *  @param A Set
+ *  @param B Set
+ *  @return Bool
+ */
 template <typename A, typename B>
 Function(Set->Set->Bool) Contain = Reduction<contain_impl<A, B>>;
 
 #pragma mark Union
-/**
- *  A: Set
- *  B: Set
- *  A ∪ B = {a | a ∈ A ∨ a ∈ B}
- */
-
 namespace {
     template <typename ...>
     struct union_impl;
@@ -144,15 +142,16 @@ namespace {
     };
 };
 
+/**
+ *  A ∪ B = {a | a ∈ A ∨ a ∈ B}
+ *  @param A Set
+ *  @param B Set
+ *  @return Union of A and B
+ */
 template <typename A, typename B>
 Function(Set->Set->Set) Union = Reduction<union_impl<A, B>>;
 
 #pragma mark Intersection
-/**
- *  A: Set
- *  B: Set
- *  A ∩ B = {a | a ∈ A ∧ a ∈ B}
- */
 
 namespace {
     template <typename ...>
@@ -174,15 +173,16 @@ namespace {
     };
 };
 
+/**
+ *  A ∩ B = {a | a ∈ A ∧ a ∈ B}
+ *  @param A Set
+ *  @param B Set
+ *  @return Intersection of A and B
+ */
 template <typename A, typename B>
 Function(Set->Set->Set) Intersection = Reduction<intersection_impl<A, B>>;
 
 #pragma mark Product
-/**
- *  A: Set
- *  B: Set
- *  A × B = {(a, b) | a ∈ A, b ∈ B}
- */
 
 namespace {
     template <typename ...>
@@ -202,8 +202,16 @@ namespace {
     };
 };
 
+/**
+ *  A × B = {(a, b) | a ∈ A, b ∈ B}
+ *  @param A Set
+ *  @param B Set
+ *  @return Product set of A and B
+ */
 template <typename A, typename B>
 Function(Set->Set->Set) Product = Reduction<product_impl<A, B>>;
+
+#pragma mark Equality of set
 
 namespace {
     template <typename, typename>
