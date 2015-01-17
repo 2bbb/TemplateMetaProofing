@@ -13,7 +13,7 @@
 namespace {
     Proposition(P);
     Proposition(Q);
-
+    
     auto proofOfPorQthenQorP()
     -> Theorem<Imp<Or<P, Q>, Or<Q, P>>>
     {
@@ -40,6 +40,16 @@ namespace {
         
         return proof;
     }
+    
+    auto exampleOfNotE()
+    -> Formula<False, Assumptions<P, Not<P>>>
+    {
+        using namespace Axiom;
+        Proof() proof1 = PL::assume<P>();
+        Proof() proof2 = PL::assume<Not<P>>();
+        Proof() proof3 = PL::notE(proof1, proof2);
+        return proof3;
+    }
 };
 
 #include "PrintDebug/PL.h"
@@ -48,7 +58,9 @@ namespace PLTest {
     void test() {
         using namespace std;
         cout << And<P, Q>() << endl
+             << And<P, Q>() << endl
              << proofOfPorQthenQorP() << endl
-             << proofOfPandQthenQandP() << endl;
+             << proofOfPandQthenQandP() << endl
+             << exampleOfNotE() << endl;
     }
 };
