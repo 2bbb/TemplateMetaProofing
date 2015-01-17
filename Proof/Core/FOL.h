@@ -112,8 +112,8 @@ namespace Axiom {
     };
 };
 
-struct _variable {};
+struct VariableType : public type_ {};
 
-#define Variable(name) struct name : public _variable { static const char * const val() { return #name; } };
+#define Variable(name) struct name : public VariableType { static const char * const val() { return #name; } };
 
 #define AnonymousVariable() struct {}
