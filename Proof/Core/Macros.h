@@ -10,3 +10,7 @@
 
 #define Type(...) using
 #define Function(...) using
+
+#define requires(...) typename _ = Enable<__VA_ARGS__>
+#define Requires(...) __VA_ARGS__, _
+#define fulfill(...) _();
