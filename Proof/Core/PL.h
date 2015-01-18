@@ -13,10 +13,10 @@
 #include "Core/Proposition.h"
 #include "Core/Formula.h"
 
-template <typename P, requires(AreProps<P>)> struct Not : public Requires(PropositionType) {};
-template <typename P, typename Q, requires(AreProps<P, Q>)> struct And : public Requires(PropositionType) {};
-template <typename P, typename Q, requires(AreProps<P, Q>)> struct Or  : public Requires(PropositionType) {};
-template <typename P, typename Q, requires(AreProps<P, Q>)> struct Imp : public Requires(PropositionType) {};
+template <typename P, requires(AreProps<P>)> struct Not : public Requires(Types::Proposition) {};
+template <typename P, typename Q, requires(AreProps<P, Q>)> struct And : public Requires(Types::Proposition) {};
+template <typename P, typename Q, requires(AreProps<P, Q>)> struct Or  : public Requires(Types::Proposition) {};
+template <typename P, typename Q, requires(AreProps<P, Q>)> struct Imp : public Requires(Types::Proposition) {};
 
 namespace Axiom {
     class PL {

@@ -8,10 +8,12 @@
 
 #pragma once
 
-struct type_ {};
+namespace Types {
+    struct Kind {};
+    struct Bool : public Kind {};
+};
 
 namespace Meta {
-    struct BoolType : public type_ {};
-    struct True  : BoolType { static const char * const val() { return "T"; } };
-    struct False : BoolType { static const char * const val() { return "F"; } };
+    struct True  : public Types::Bool { static const char * const val() { return "T"; } };
+    struct False : public Types::Bool { static const char * const val() { return "F"; } };
 }

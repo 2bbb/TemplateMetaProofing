@@ -14,3 +14,5 @@
 #define requires(...) typename _ = Enable<__VA_ARGS__>
 #define Requires(...) __VA_ARGS__, _
 #define fulfill(...) _();
+
+#define CreateVariable(name, type) struct name : public type { static const char * const val() { return #name; } };

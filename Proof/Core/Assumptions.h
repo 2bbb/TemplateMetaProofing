@@ -12,7 +12,7 @@
 #include "Core/Proposition.h"
 
 template <typename ... As>
-struct Assumptions : Enable<AreProps<As ...>>{};
+struct Assumptions : public Enable<AreProps<As ...>>{};
 
 namespace {
     template <typename ... As>

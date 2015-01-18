@@ -11,11 +11,14 @@
 #include "Core/Includes.h"
 #include "Core/Eq.h"
 
+namespace Types {
+    struct Nat : public Kind {};
+};
+
 namespace Nat {
-    struct NatType : public type_ {};
     
     template <typename M>
-    using IsNat = HasType<M, NatType>;
+    using IsNat = HasType<M, Types::Nat>;
     
     template <typename ... Ms>
     using AreNats = Reduce<Meta::And, Meta::True, Map<IsNat, Set<Ms ...>>>;
@@ -24,39 +27,39 @@ namespace Nat {
      *  Zero
      *  @return 0
      */
-    struct Zero : public NatType {};
+    struct Zero : public Types::Nat {};
     
     /**
      *  Succesor
      *
-     *  @param M <b>requires</b> NatType
+     *  @param M <b>requires</b> Types::Nat
      *
      *  @return Suc(M) Succesor of M
      */
     template <typename M, requires(AreNats<M>)>
-    struct Suc : public Requires(NatType) {};
+    struct Suc : public Requires(Types::Nat) {};
     
     /**
      *  Addition of Nat
      *
-     *  @param M <b>requires</b> NatType
-     *  @param N <b>requires</b> NatType
+     *  @param M <b>requires</b> Types::Nat
+     *  @param N <b>requires</b> Types::Nat
      *
-     *  @return M+N NatType
+     *  @return M+N Types::Nat
      */
     template <typename M, typename N, requires(AreNats<M, N>)>
-    struct Add : public Requires(NatType) {};
+    struct Add : public Requires(Types::Nat) {};
     
     /**
      *  Multiply of Nat
      *
-     *  @param M <b>requires</b> NatType
-     *  @param N <b>requires</b> NatType
+     *  @param M <b>requires</b> Types::Nat
+     *  @param N <b>requires</b> Types::Nat
      *
-     *  @return M*N NatType
+     *  @return M*N Types::Nat
      */
     template <typename M, typename N, requires(AreNats<M, N>)>
-    struct Mul : public Requires(NatType) {};
+    struct Mul : public Requires(Types::Nat) {};
 };
 
 namespace Axiom {
@@ -66,9 +69,9 @@ namespace Axiom {
         /**
          *  m = n -> s(m) = s(n)
          *
-         *  @param M <b>requires</b> NatType
-         *  @param N <b>requires</b> NatType
-         *  @param As... Array of Propositions <b>requires</b> PropositionType
+         *  @param M <b>requires</b> Types::Nat
+         *  @param N <b>requires</b> Types::Nat
+         *  @param As... Array of Propositions <b>requires</b> Types::Proposition
          *  @param Formula<Eq<M,N>,Assumptions<As...>>
          *
          *  @return Formula<Eq<Nat::Suc<M>,Nat::Suc<N>>,Assumptions<As...>>
@@ -130,4 +133,4 @@ namespace Axiom {
     };
 };
 
-#define NaturalNumber(name) struct name : public Nat::NatType { static const char * const val() { return #name; } };
+#define NaturalNumber(name) CreateVariable(name, Types::Nat)

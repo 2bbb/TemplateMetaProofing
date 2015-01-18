@@ -12,4 +12,4 @@
 #include "Core/Meta.h"
 
 template <typename X, typename T>
-using HasType = Meta::And<IsDerived<T, type_>, IsDerived<X, T>>;
+using HasType = Meta::And<IsDerived<T, Types::Kind>, IsDerived<X, T>>;

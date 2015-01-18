@@ -12,7 +12,7 @@
 #include "Core/PL.h"
 
 namespace {
-    template<typename P, typename X, typename V, typename = AreProps<P>>
+    template<typename P, typename X, typename V>
     struct substitute_impl {
         using type = P;
     };
@@ -36,8 +36,8 @@ struct NewType : public T {
     using type = NewType;
 };
 
-template <typename X, typename Prop> struct ForAll : public PropositionType {};
-template <typename X, typename Prop> struct Exists : public PropositionType {};
+template <typename X, typename Prop, requires(AreProps<Prop>)> struct ForAll : public Requires(Types::Proposition) {};
+template <typename X, typename Prop, requires(AreProps<Prop>)> struct Exists : public Requires(Types::Proposition) {};
 
 namespace {
     template <typename X, typename P>
@@ -112,8 +112,8 @@ namespace Axiom {
     };
 };
 
-struct VariableType : public type_ {};
+namespace Types {
+    struct Variable : public Kind {};
+};
 
-#define Variable(name) struct name : public VariableType { static const char * const val() { return #name; } };
-
-#define AnonymousVariable() struct {}
+#define Variable(name) CreateVariable(name, Types::Variable)

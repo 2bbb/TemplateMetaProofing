@@ -10,14 +10,17 @@
 
 #include "Core/Includes.h"
 
-struct PropositionType : public type_ {};
-#define Proposition(name) struct name : public PropositionType { static const char * const val() { return #name; } };
+namespace Types {
+    struct Proposition : public Kind {};
+}
+
+#define Proposition(name) CreateVariable(name, Types::Proposition)
 
 template <typename P>
-using IsProp = HasType<P, PropositionType>;
+using IsProp = HasType<P, Types::Proposition>;
 
 template <typename ... Ps>
 using AreProps = Reduce<Meta::And, Meta::True, Map<IsProp, Set<Ps ...>>>;
 
-struct Tautology : public PropositionType { static const char * const val() { return "Ｔ"; } };
-struct Contradiction : public PropositionType { static const char * const val() { return "⊥"; } };
+struct Tautology : public Types::Proposition { static const char * const val() { return "Ｔ"; } };
+struct Contradiction : public Types::Proposition { static const char * const val() { return "⊥"; } };

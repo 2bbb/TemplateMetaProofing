@@ -10,13 +10,15 @@
 
 #include "Core/Includes.h"
 
-struct AbstractElementType : public type_ {};
-#define Element(name) struct name : public AbstractElementType { static const char * const val() { return #name; } };
+namespace Types {
+    struct AbstractElement : public Kind {};
+    struct Set : public Kind {};
+};
 
-struct SetType : public type_ {};
+#define Element(name) CreateVariable(name, Types::AbstractElement)
 
 template <typename ... As>
-struct Set : SetType {
+struct Set : Types::Set {
     using type = MakeUnique<As ...>;
 };
 
@@ -52,8 +54,8 @@ namespace {
 /**
  *  f(A) = {f(a) | a ∈ A}
  *  @param F A→B
- *  @param A <b>requires</b> SetType
- *  @return SetType
+ *  @param A <b>requires</b> Types::Set
+ *  @return Types::Set
  */
 template <template <typename> class F, typename S>
 Function(Function->Set->Set) Map = Reduction<map_impl<F, S>>;
@@ -79,7 +81,7 @@ namespace {
  *  f(a, f(b, f(..., init))) (a, b, ... ∈ A)
  *  @param F (T, T) → T
  *  @param Init element of T
- *  @param A Set of T <b>requires</b> SetType
+ *  @param A Set of T <b>requires</b> Types::Set
  *  @return T
  */
 template <template <typename, typename> class F, typename Init, typename A>
@@ -102,7 +104,7 @@ namespace {
 /**
  *  x ∈ A = True if x ∈ A otherwise False
  *  @param X element
- *  @param A <b>requires</b> SetType
+ *  @param A <b>requires</b> Types::Set
  *  @return BoolType
  */
 template <typename X, typename A>
@@ -124,8 +126,8 @@ namespace {
 
 /**
  *  A ⊂ B = True if ∀x.(x ∈ B), otherwise False
- *  @param A <b>requires</b> SetType
- *  @param B <b>requires</b> SetType
+ *  @param A <b>requires</b> Types::Set
+ *  @param B <b>requires</b> Types::Set
  *  @return BoolType
  */
 template <typename A, typename B>
@@ -144,9 +146,9 @@ namespace {
 
 /**
  *  A ∪ B = {a | a ∈ A ∨ a ∈ B}
- *  @param A <b>requires</b> SetType
- *  @param B <b>requires</b> SetType
- *  @return SetType Union of A and B
+ *  @param A <b>requires</b> Types::Set
+ *  @param B <b>requires</b> Types::Set
+ *  @return Types::Set Union of A and B
  */
 template <typename A, typename B>
 Function(Set->Set->Set) Union = Reduction<union_impl<A, B>>;
@@ -175,9 +177,9 @@ namespace {
 
 /**
  *  A ∩ B = {a | a ∈ A ∧ a ∈ B}
- *  @param A <b>requires</b> SetType
- *  @param B <b>requires</b> SetType
- *  @return SetType Intersection of A and B
+ *  @param A <b>requires</b> Types::Set
+ *  @param B <b>requires</b> Types::Set
+ *  @return Types::Set Intersection of A and B
  */
 template <typename A, typename B>
 Function(Set->Set->Set) Intersection = Reduction<intersection_impl<A, B>>;
@@ -204,9 +206,9 @@ namespace {
 
 /**
  *  A × B = {(a, b) | a ∈ A, b ∈ B}
- *  @param A <b>requires</b> SetType
- *  @param B <b>requires</b> SetType
- *  @return SetType Product set of A and B
+ *  @param A <b>requires</b> Types::Set
+ *  @param B <b>requires</b> Types::Set
+ *  @return Types::Set Product set of A and B
  */
 template <typename A, typename B>
 Function(Set->Set->Set) Product = Reduction<product_impl<A, B>>;

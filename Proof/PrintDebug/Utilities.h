@@ -41,10 +41,13 @@ namespace {
     using HasVal = Reduction<has_member_impl<T, check_has_val>>;
 };
 
-template <typename P>
-Meta::If<HasVal<P>, std::ostream &> operator<<(std::ostream &os, const P &) {
-    os << P::val();
-    return os;
+// Why does this run by wrapping by the `namespace Types`?
+namespace Types {
+    template <typename P>
+    Meta::If<HasVal<P>, std::ostream &> operator<<(std::ostream &os, const P &) {
+        os << P::val();
+        return os;
+    }
 }
 
 template <typename A, typename B, typename ... Bs>

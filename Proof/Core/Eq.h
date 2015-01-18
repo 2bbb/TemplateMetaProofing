@@ -11,7 +11,7 @@
 #include "Core/Includes.h"
 #include "Core/FOL.h"
 
-template<typename S, typename T> struct Eq : public PropositionType {};
+template<typename S, typename T> struct Eq : public Types::Proposition {};
 
 namespace Axiom {
     class Equality {
