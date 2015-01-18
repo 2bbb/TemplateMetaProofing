@@ -52,8 +52,8 @@ namespace {
 /**
  *  f(A) = {f(a) | a ∈ A}
  *  @param F A→B
- *  @param A Set
- *  @return Set
+ *  @param A <b>requires</b> SetType
+ *  @return SetType
  */
 template <template <typename> class F, typename S>
 Function(Function->Set->Set) Map = Reduction<map_impl<F, S>>;
@@ -79,7 +79,7 @@ namespace {
  *  f(a, f(b, f(..., init))) (a, b, ... ∈ A)
  *  @param F (T, T) → T
  *  @param Init element of T
- *  @param A Set of T
+ *  @param A Set of T <b>requires</b> SetType
  *  @return T
  */
 template <template <typename, typename> class F, typename Init, typename A>
@@ -102,8 +102,8 @@ namespace {
 /**
  *  x ∈ A = True if x ∈ A otherwise False
  *  @param X element
- *  @param A Set
- *  @return Bool
+ *  @param A <b>requires</b> SetType
+ *  @return BoolType
  */
 template <typename X, typename A>
 Function(X->Set->Bool) In = Reduction<in_impl<X, A>>;
@@ -124,9 +124,9 @@ namespace {
 
 /**
  *  A ⊂ B = True if ∀x.(x ∈ B), otherwise False
- *  @param A Set
- *  @param B Set
- *  @return Bool
+ *  @param A <b>requires</b> SetType
+ *  @param B <b>requires</b> SetType
+ *  @return BoolType
  */
 template <typename A, typename B>
 Function(Set->Set->Bool) Contain = Reduction<contain_impl<A, B>>;
@@ -144,9 +144,9 @@ namespace {
 
 /**
  *  A ∪ B = {a | a ∈ A ∨ a ∈ B}
- *  @param A Set
- *  @param B Set
- *  @return Union of A and B
+ *  @param A <b>requires</b> SetType
+ *  @param B <b>requires</b> SetType
+ *  @return SetType Union of A and B
  */
 template <typename A, typename B>
 Function(Set->Set->Set) Union = Reduction<union_impl<A, B>>;
@@ -175,9 +175,9 @@ namespace {
 
 /**
  *  A ∩ B = {a | a ∈ A ∧ a ∈ B}
- *  @param A Set
- *  @param B Set
- *  @return Intersection of A and B
+ *  @param A <b>requires</b> SetType
+ *  @param B <b>requires</b> SetType
+ *  @return SetType Intersection of A and B
  */
 template <typename A, typename B>
 Function(Set->Set->Set) Intersection = Reduction<intersection_impl<A, B>>;
@@ -204,9 +204,9 @@ namespace {
 
 /**
  *  A × B = {(a, b) | a ∈ A, b ∈ B}
- *  @param A Set
- *  @param B Set
- *  @return Product set of A and B
+ *  @param A <b>requires</b> SetType
+ *  @param B <b>requires</b> SetType
+ *  @return SetType Product set of A and B
  */
 template <typename A, typename B>
 Function(Set->Set->Set) Product = Reduction<product_impl<A, B>>;
