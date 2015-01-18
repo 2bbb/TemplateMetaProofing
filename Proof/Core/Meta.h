@@ -71,6 +71,8 @@ namespace Meta {
     using Or = Reduction<or_impl<A, B>>;
     
     namespace {
+        struct disabler;
+        
         template <typename Condition, typename Then, typename Else> struct if_impl;
         
         template <typename Then, typename Else>
@@ -82,8 +84,11 @@ namespace Meta {
         struct if_impl<False, Then, Else> {
             Type(Value) type = Else;
         };
+        
+        template <typename Then>
+        struct if_impl<False, Then, disabler>;
     };
     
-    template <typename Condition, typename Then, typename Else>
+    template <typename Condition, typename Then, typename Else = disabler>
     Function(Bool->X->X->X) If = Reduction<if_impl<Condition, Then, Else>>;
 };
