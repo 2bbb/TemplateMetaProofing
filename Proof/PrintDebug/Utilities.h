@@ -10,6 +10,8 @@
 
 #include <iostream>
 
+#include "Core/Includes.h"
+
 #include "PrintDebug/Set.h"
 #include "PrintDebug/Assumptions.h"
 #include "PrintDebug/Formula.h"
