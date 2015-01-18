@@ -10,7 +10,7 @@
 
 #include "Core/Includes.h"
 #include "Core/Assumptions.h"
-#include "Proposition.h"
+#include "Core/Proposition.h"
 #include "Core/Formula.h"
 
 template <typename P, requires(AreProps<P>)> struct Not : public Requires(PropositionType) {};

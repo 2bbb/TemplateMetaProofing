@@ -9,7 +9,7 @@
 #pragma once
 
 #include "Core/Includes.h"
-#include "Proposition.h"
+#include "Core/Proposition.h"
 
 template <typename ... As>
 struct Assumptions : Enable<AreProps<As ...>>{};
