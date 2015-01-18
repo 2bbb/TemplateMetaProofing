@@ -23,20 +23,14 @@
 namespace {
     template <typename T, typename NameGetter>
     class has_member_impl {
-        typedef char matched_return_type;
-        typedef long unmatched_return_type;
-        
         template <typename C>
-        static matched_return_type f(typename NameGetter::template get<C> *);
+        static Meta::True f(typename NameGetter::template get<C> *);
         
         template <typename>
-        static unmatched_return_type f(...);
+        static Meta::False f(...);
     public:
-        static const bool value = (sizeof(f<T>(0)) == sizeof(matched_return_type));
+        using type = decltype(f<T>(0));
     };
-    
-    template <typename T, typename NameGetter>
-    struct has_member : std::integral_constant<bool, has_member_impl<T, NameGetter>::value> {};
     
     struct check_has_val {
         template <typename T, const char * const (*)() = &T::val>
@@ -44,11 +38,11 @@ namespace {
     };
     
     template <typename T>
-    struct has_val : has_member<T, check_has_val> {};
-}
+    using HasVal = Reduction<has_member_impl<T, check_has_val>>;
+};
 
 template <typename P>
-Reduction<std::enable_if<has_val<P>::value, std::ostream &>> operator<<(std::ostream &os, const P &) {
+Meta::If<HasVal<P>, std::ostream &> operator<<(std::ostream &os, const P &) {
     os << P::val();
     return os;
 }
