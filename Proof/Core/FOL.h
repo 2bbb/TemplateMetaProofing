@@ -32,7 +32,7 @@ template<typename P, typename X, typename V>
 using Substitute = Reduction<substitute_impl<P, X, V>>;
 
 template <typename T>
-struct NewType {
+struct NewType : public T {
     using type = NewType;
 };
 
