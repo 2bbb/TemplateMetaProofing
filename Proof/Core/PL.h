@@ -13,15 +13,54 @@
 #include "Core/Proposition.h"
 #include "Core/Formula.h"
 
+/**
+ *  Not
+ *
+ *  @param P <b>requires</b> Types::Proposition
+ *
+ *  @return Proposition ¬P
+ */
 template <typename P, requires(AreProps<P>)> struct Not : public Requires(Types::Proposition) {};
+
+/**
+ *  And
+ *
+ *  @param P <b>requires</b> Types::Proposition
+ *  @param Q <b>requires</b> Types::Proposition
+ *
+ *  @return Proposition P ∧ Q
+ */
 template <typename P, typename Q, requires(AreProps<P, Q>)> struct And : public Requires(Types::Proposition) {};
+
+/**
+ *  Or
+ *
+ *  @param P <b>requires</b> Types::Proposition
+ *  @param Q <b>requires</b> Types::Proposition
+ *
+ *  @return Proposition P ∨ Q
+ */
 template <typename P, typename Q, requires(AreProps<P, Q>)> struct Or  : public Requires(Types::Proposition) {};
+
+/**
+ *  Implication
+ *
+ *  @param P <b>requires</b> Types::Proposition
+ *  @param Q <b>requires</b> Types::Proposition
+ *
+ *  @return Proposition P → Q
+ */
 template <typename P, typename Q, requires(AreProps<P, Q>)> struct Imp : public Requires(Types::Proposition) {};
 
 namespace Axiom {
     class PL {
     public:
-        // {} |- P --> P
+        /**
+         *  Assume proposition.
+         *
+         *  @param P <b>requires</b> Types::Proposition
+         *  @return Formula {P} ├ P
+         */
         template <typename P, requires(AreProps<P>)>
         static auto assume()
         -> Formula<P, Assumptions<P>>
@@ -30,7 +69,15 @@ namespace Axiom {
             return Formula<P, Assumptions<P>>();
         }
         
-        // P, Gamma |- F --> Gamma |- -P
+        /**
+         *  Introduction Not
+         *
+         *  @param P <b>requires</b> Types::Proposition
+         *  @param Gamma... Array of Propositions <b>requires</b> Types::Proposition
+         *  @param Formula Gamma ∪ {P} ├ ⊥
+         *
+         *  @return Formula Gamma ├ ¬P
+         */
         template <typename P, typename ... Gamma, requires(AreProps<P>)>
         static auto notI(const Formula<Contradiction, Assumptions<P, Gamma ...>> &)
         -> Formula<Not<P>, Assumptions<Gamma ...>>
@@ -39,7 +86,17 @@ namespace Axiom {
             return Formula<Not<P>, Assumptions<Gamma ...>>();
         }
         
-        // Gamma |- P + Delta |- -P --> Gamma, Delta |- Contradiction
+        /**
+         *  Elimination Not
+         *
+         *  @param P <b>requires</b> Types::Proposition
+         *  @param Gamma... Array of Propositions <b>requires</b> Types::Proposition
+         *  @param Delta... Array of Propositions <b>requires</b> Types::Proposition
+         *  @param Formula Gamma ├ P
+         *  @param Formula Delta ├ ¬P
+         *
+         *  @return Formula Gamma ∪ Delta ├ ⊥
+         */
         template <typename P, typename ... Gamma, typename ... Delta, requires(AreProps<P>)>
         static auto notE(const Formula<P, Assumptions<Gamma ...>> &,
                          const Formula<Not<P>, Assumptions<Delta ...>> &)
@@ -49,7 +106,19 @@ namespace Axiom {
             return Formula<Contradiction, MakeAssumptions<Gamma ..., Delta ...>>();
         }
         
-        // Gamma |- P + Delta |- Q --> Gamma, Delta |- P /\ Q
+        // Gamma ├ P + Delta ├ Q --> Gamma, Delta ├ P ∧ Q
+        /**
+         *  Introduction And
+         *
+         *  @param P <b>requires</b> Types::Proposition
+         *  @param Q <b>requires</b> Types::Proposition
+         *  @param Gamma... Array of Propositions <b>requires</b> Types::Proposition
+         *  @param Delta... Array of Propositions <b>requires</b> Types::Proposition
+         *  @param Formula Gamma ├ P
+         *  @param Formula Delta ├ Q
+         *
+         *  @return Formula Gamma ∪ Delta ├ P ∧ Q
+         */
         template <typename P, typename Q, typename ... Gamma, typename ... Delta, requires(AreProps<P, Q>)>
         static auto andI(const Formula<P, Assumptions<Gamma ...>> &proof1,
                          const Formula<Q, Assumptions<Delta ...>> &proof2)
@@ -59,7 +128,16 @@ namespace Axiom {
             return Formula<And<P, Q>, MakeAssumptions<Gamma ..., Delta ...>>();
         }
         
-        // Gamma |- P /\ Q --> Gamma |- P
+        /**
+         *  Elimination And keep Left Proposition
+         *
+         *  @param P <b>requires</b> Types::Proposition
+         *  @param Q <b>requires</b> Types::Proposition
+         *  @param Gamma... Array of Propositions <b>requires</b> Types::Proposition
+         *  @param Formula Gamma ├ P ∧ Q
+         *
+         *  @return Formula Gamma ├ P
+         */
         template <typename P, typename Q, typename ... Gamma, requires(AreProps<P, Q>)>
         static auto andEL(const Formula<And<P, Q>, Assumptions<Gamma ...>> &)
         -> Formula<P, Assumptions<Gamma ...>>
@@ -68,7 +146,16 @@ namespace Axiom {
             return Formula<P, Assumptions<Gamma ...>>();
         }
         
-        // Gamma |- P /\ Q --> Gamma |- Q
+        /**
+         *  Elimination And, keep Right Proposition
+         *
+         *  @param P <b>requires</b> Types::Proposition
+         *  @param Q <b>requires</b> Types::Proposition
+         *  @param Gamma... Array of Propositions <b>requires</b> Types::Proposition
+         *  @param Formula Gamma ├ P ∧ Q
+         *
+         *  @return Formula Gamma ├ Q
+         */
         template <typename P, typename Q, typename ... Gamma, requires(AreProps<P, Q>)>
         static auto andER(const Formula<And<P, Q>, Assumptions<Gamma ...>> &)
         -> Formula<Q, Assumptions<Gamma ...>>
@@ -77,7 +164,16 @@ namespace Axiom {
             return Formula<Q, Assumptions<Gamma ...>>();
         }
         
-        // Gamma |- P --> Gamma |- P\/Q
+        /**
+         *  Introduction Or, Original Proposition to Left
+         *
+         *  @param P <b>requires</b> Types::Proposition
+         *  @param Q <b>requires</b> Types::Proposition
+         *  @param Gamma... Array of Propositions <b>requires</b> Types::Proposition
+         *  @parma Formula Gamma ├ P
+         *
+         *  @return Formula Gamma ├ P ∨ Q
+         */
         template <typename P, typename Q, typename ... Gamma, requires(AreProps<P, Q>)>
         static auto orIL(const Formula<P, Assumptions<Gamma ...>> &)
         -> Formula<Or<P, Q>, Assumptions<Gamma ...>>
@@ -86,7 +182,16 @@ namespace Axiom {
             return Formula<Or<P, Q>, Assumptions<Gamma ...>>();
         }
         
-        // Gamma |- Q --> Gamma |- P\/Q
+        /**
+         *  Introduction Or, Original Proposition to Right
+         *
+         *  @param P <b>requires</b> Types::Proposition
+         *  @param Q <b>requires</b> Types::Proposition
+         *  @param Gamma... Array of Propositions <b>requires</b> Types::Proposition
+         *  @parma Formula Gamma ├ Q
+         *
+         *  @return Formula Gamma ├ P ∨ Q
+         */
         template <typename P, typename Q, typename ... Gamma, requires(AreProps<P, Q>)>
         static auto orIR(const Formula<Q, Assumptions<Gamma ...>> &)
         -> Formula<Or<P, Q>, Assumptions<Gamma ...>>
@@ -95,7 +200,22 @@ namespace Axiom {
             return Formula<Or<P, Q>, Assumptions<Gamma ...>>();
         }
         
-        // Gamma |- P\/Q + P, Delta |- R + Q, Lambda |- R --> Gamma, Delta, Lambda |- R
+        // Gamma ├ P ∨ Q + P, Delta ├ R + Q, Lambda ├ R --> Gamma, Delta, Lambda ├ R
+        /**
+         *  Elimination Or
+         *
+         *  @param P <b>requires</b> Types::Proposition
+         *  @param Q <b>requires</b> Types::Proposition
+         *  @param R <b>requires</b> Types::Proposition
+         *  @param Gamma... Array of Propositions <b>requires</b> Types::Proposition
+         *  @param Delta... Array of Propositions <b>requires</b> Types::Proposition
+         *  @param Lambda... Array of Propositions <b>requires</b> Types::Proposition
+         *  @parma Formula Gamma ├ P ∨ Q
+         *  @parma Formula {P} ∪ Delta ├ R
+         *  @parma Formula {Q} ∪ Lambda ├ R
+         *
+         *  @return Formula Gamma ∪ Delta ∪ Lambda ├ R
+         */
         template <typename P, typename Q, typename R, typename ... Gamma, typename ... Delta, typename ... Lambda, requires(AreProps<P, Q, R>)>
         static auto orE(const Formula<Or<P, Q>, Assumptions<Gamma ...>> &,
                         const Formula<R, Assumptions<P, Delta ...>> &,
@@ -106,7 +226,16 @@ namespace Axiom {
             return Formula<R, MakeAssumptions<Gamma ..., Delta ..., Lambda ...>>();
         }
         
-        // P, Gamma |- Q --> Gamma |- P=>Q
+        /**
+         *  Introduction Implication
+         *
+         *  @param P <b>requires</b> Types::Proposition
+         *  @param Q <b>requires</b> Types::Proposition
+         *  @param Gamma... Array of Propositions <b>requires</b> Types::Proposition
+         *  @parma Formula {P} ∪ Gamma ├ Q
+         *
+         *  @return Formula Gamma ├ P → Q
+         */
         template <typename P, typename Q, typename ... Gamma, requires(AreProps<P, Q>)>
         static auto impI(const Formula<Q, Assumptions<P, Gamma ...>> &)
         -> Formula<Imp<P, Q>, Assumptions<Gamma ...>>
@@ -115,7 +244,18 @@ namespace Axiom {
             return Formula<Imp<P, Q>, Assumptions<Gamma ...>>();
         }
         
-        // Gamma |- P => Q + Delta |- P --> Gamma, Delta |- Q
+        /**
+         *  Elimination Implication
+         *
+         *  @param P <b>requires</b> Types::Proposition
+         *  @param Q <b>requires</b> Types::Proposition
+         *  @param Gamma... Array of Propositions <b>requires</b> Types::Proposition
+         *  @param Delta... Array of Propositions <b>requires</b> Types::Proposition
+         *  @parma Formula Gamma ├ P → Q
+         *  @parma Formula Delta ├ P
+         *
+         *  @return Formula Gamma ∪ Delta ├ Q
+         */
         template <typename P, typename Q, typename ... Gamma, typename ... Delta, requires(AreProps<P, Q>)>
         static auto impE(const Formula<Imp<P, Q>, Assumptions<Gamma ...>> &,
                          const Formula<P, Assumptions<Delta ...>> &)
@@ -125,7 +265,15 @@ namespace Axiom {
             return Formula<Q, MakeAssumptions<Gamma ..., Delta ...>>();
         }
         
-        // Gamma |- ⊥ --> Gamma |- P
+        /**
+         *  Contradiction
+         *
+         *  @param P <b>requires</b> Types::Proposition
+         *  @param Gamma... Array of Propositions <b>requires</b> Types::Proposition
+         *  @param Formula Gamma ├ ⊥
+         *
+         *  @return Formula Gamma ├ P
+         */
         template <typename P, typename ... Gamma, requires(AreProps<P>)>
         static auto contradiction(const Formula<Contradiction, Assumptions<Gamma ...>> &)
         -> Formula<P, Assumptions<Gamma ...>>
@@ -135,8 +283,13 @@ namespace Axiom {
         }
         
 #ifdef IS_CLASSICAL
-        // Law of excluded middle
-        // {} |- P\/-P
+        /**
+         *  Law of excluded middle
+         *
+         *  @param P <b>requires</b> Types::Proposition
+         *
+         *  @return {} ├ P ∨ ¬P
+         */
         template <typename P>
         static auto lem()
         -> Formula<Or<P, Not<P>>, Assumptions<>, requires(AreProps<P>)>
