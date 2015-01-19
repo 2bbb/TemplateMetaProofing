@@ -8,10 +8,13 @@
 
 #pragma once
 
+#include "Macros.h"
+
 namespace Types {
     struct Kind {};
-    struct Bool : public Kind {};
 };
+
+DeclareType(Bool);
 
 namespace Meta {
     struct True  : public Types::Bool {
@@ -26,19 +29,13 @@ namespace Meta {
 
 namespace {
     template <typename A>
-    struct is_bool_impl {
-        using type = Meta::False;
-    };
+    struct is_bool_impl : public Meta::False {};
     
     template <>
-    struct is_bool_impl<Meta::True> {
-        using type = Meta::True;
-    };
+    struct is_bool_impl<Meta::True> : public Meta::True {};
 
     template <>
-    struct is_bool_impl<Meta::False> {
-        using type = Meta::True;
-    };
+    struct is_bool_impl<Meta::False> : public Meta::True {};
 };
 
 template <typename A>

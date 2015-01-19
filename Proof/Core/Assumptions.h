@@ -11,8 +11,10 @@
 #include "Core/Includes.h"
 #include "Core/Proposition.h"
 
-template <typename ... As>
-struct Assumptions : public Enable<AreProps<As ...>> {};
+DeclareType(Assumptions);
+
+template <typename ...>
+struct Assumptions : public Types::Assumptions {};
 
 namespace {
     template <typename ... As>

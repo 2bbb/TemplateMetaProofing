@@ -112,8 +112,6 @@ namespace Axiom {
     };
 };
 
-namespace Types {
-    struct Variable : public Kind {};
-};
+DeclareType(Variable);
 
 #define Variable(name) CreateVariable(name, Types::Variable)

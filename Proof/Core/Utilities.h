@@ -31,7 +31,7 @@ using Eval = typename T::value;
 
 namespace {
 	template <typename D, typename B>
-	struct is_derived_impl {
+    struct is_derived_impl : public Types::Bool {
 		template <typename T>
 		static Meta::True check(D &, T);
         static Meta::False check(B &, int);
@@ -48,8 +48,10 @@ namespace {
 template <typename Derived, typename Base>
 using IsDerived = Reduction<is_derived_impl<Derived, Base>>;
 
+DeclareType(TypeHolder);
+
 template <typename ...>
-struct TypeHolder {};
+struct TypeHolder : public Types::TypeHolder {};
 
 namespace {
     template <template <typename ...> class Template, typename A>
@@ -64,10 +66,12 @@ namespace {
 template <template <typename ...> class Template, typename A>
 Function() RewrapTypeHolder = Reduction<rewrap_typeholder_impl<Template, A>>;
 
-struct Null {};
+DeclareType(Pair);
+
+struct Null : public Types::Pair {};
 
 template <typename A, typename B>
-struct Pair {};
+struct Pair : public Types::Pair {};
 
 namespace {
     struct inner_null {};
@@ -75,8 +79,10 @@ namespace {
     struct inner_pair {};
 };
 
+DeclareType(Tuple);
+
 template <typename ...>
-struct Tuple {};
+struct Tuple : public Types::Tuple {};
 
 namespace {
     template <typename ...>
@@ -159,9 +165,9 @@ using MakeUnique = Flatten<Reduction<make_unique_impl<As ...>>>;
 //    template <typename T>
 //    using type = F<G<T>>;
 //};
-
-template <typename X, template <typename ...> class F>
-struct bind_impl {
-    template <typename ... As>
-    using type = F<X, As ...>;
-};
+//
+//template <typename X, template <typename ...> class F>
+//struct bind_impl {
+//    template <typename ... As>
+//    using type = F<X, As ...>;
+//};

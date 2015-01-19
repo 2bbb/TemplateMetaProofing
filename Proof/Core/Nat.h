@@ -11,12 +11,9 @@
 #include "Core/Includes.h"
 #include "Core/Eq.h"
 
-namespace Types {
-    struct Nat : public Kind {};
-};
+DeclareType(Nat);
 
 namespace Nat {
-    
     template <typename M>
     using IsNat = HasType<M, Types::Nat>;
     
@@ -71,17 +68,17 @@ namespace Axiom {
          *
          *  @param M <b>requires</b> Types::Nat
          *  @param N <b>requires</b> Types::Nat
-         *  @param As... Array of Propositions <b>requires</b> Types::Proposition
+         *  @param Asmp Types::Assumptions
          *  @param Formula<Eq<M,N>,Assumptions<As...>>
          *
          *  @return Formula<Eq<Nat::Suc<M>,Nat::Suc<N>>,Assumptions<As...>>
          */
-        template <typename M, typename N, typename ... As, requires(Meta::And<AreNats<M, N>, AreProps<As ...>>)>
-        static auto eq_suc(const Formula<Eq<M, N>, Assumptions<As ...>> &)
-        -> Formula<Eq<Nat::Suc<M>, Nat::Suc<N>>, Assumptions<As ...>>
+        template <typename M, typename N, typename Asmp, requires(AreNats<M, N>)>
+        static auto eq_suc(const Formula<Eq<M, N>, Asmp> &)
+        -> Formula<Eq<Nat::Suc<M>, Nat::Suc<N>>, Asmp>
         {
             fulfill(AreNats<M, N>);
-            return Formula<Eq<Nat::Suc<M>, Nat::Suc<N>>, Assumptions<As ...>>();
+            return Formula<Eq<Nat::Suc<M>, Nat::Suc<N>>, Asmp>();
         }
         
         // add(m, 0) = m

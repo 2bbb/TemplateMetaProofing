@@ -8,8 +8,8 @@
 
 #pragma once
 
-#include "Core/Constants.h"
-#include "Core/Meta.h"
-#include "Core/Utilities.h"
 #include "Core/Macros.h"
+#include "Core/Constants.h"
+#include "Core/Utilities.h"
+#include "Core/Meta.h"
 #include "Core/Types.h"

@@ -16,3 +16,9 @@
 #define fulfill(...) _();
 
 #define CreateVariable(name, type) struct name : public type { static const char * const val() { return #name; } };
+
+#define DeclareType(type) namespace Types {\
+    struct type : public Types::Kind {\
+        using TypeInfo = type;\
+    };\
+};

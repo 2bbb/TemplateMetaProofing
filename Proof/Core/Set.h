@@ -11,14 +11,18 @@
 #include "Core/Includes.h"
 
 namespace Types {
-    struct AbstractElement : public Kind {};
-    struct Set : public Kind {};
+    struct AbstractElement : public Types::Kind {
+        using TypeInfo = Types::AbstractElement;
+    };
+    struct Set : public Types::Kind {
+        using TypeInfo = Types::Set;
+    };
 };
 
 #define Element(name) CreateVariable(name, Types::AbstractElement)
 
 template <typename ... As>
-struct Set : public Types::Set {
+struct Set : public Types::Set, Enable<AreSameType<As ...>> {
     using type = MakeUnique<As ...>;
 };
 

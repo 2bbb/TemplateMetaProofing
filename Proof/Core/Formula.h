@@ -18,25 +18,23 @@ namespace Axiom {
     class PA;
 };
 
-template <typename Result, typename Asmp>
-class Formula {
-    template <typename ... Formulas>
-    Formula(const Formulas & ... formulas) {};
-    friend class Axiom::PL;
-    friend class Axiom::FOL;
-    friend class Axiom::Equality;
-    friend class Axiom::PA;
-};
+DeclareType(Formula)
 
-template <typename Result>
-class Formula<Result, Assumptions<>> {
-    Formula() {};
+template <typename Result, typename Asmp>
+class Formula : public Types::Formula {
     friend class Axiom::PL;
     friend class Axiom::FOL;
     friend class Axiom::Equality;
     friend class Axiom::PA;
 public:
-    void qed() const {};
+    using IsTheorem = Meta::Equal<Asmp, Assumptions<>>;
+    void qed(Enable<IsTheorem> = Enable<IsTheorem>()) const {
+        std::cout << "  Q.E.D."
+                  << std::endl;
+    };
+private:
+    template <typename ... Formulas>
+    Formula(const Formulas & ... formulas) {};
 };
 
 template <typename Result>
