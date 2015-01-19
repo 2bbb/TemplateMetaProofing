@@ -74,15 +74,20 @@ namespace NatTest {
 #include "PrintDebug/Nat.h"
 
 namespace NatTest {
+// TODO: fix about declare variable
     NaturalNumber(M);
     void test() {
-        std::cout
-            << Suc<Zero>() << std::endl
-            << std::endl
-            << Add<Suc<Zero>, Suc<Zero>>() << std::endl
-            << std::endl
-            << proof_of_1_plus_1_is_2() << std::endl
-            << std::endl
-            << proofOf_m_plus_0_is_0_plus_m<M>() << std::endl;
+        using namespace std;
+        cout << Suc<Zero>() << endl
+             << endl
+        
+             << Add<Suc<Zero>, Suc<Zero>>() << endl
+             << endl
+        
+             << proof_of_1_plus_1_is_2() << endl
+             << endl
+        
+             << proofOf_m_plus_0_is_0_plus_m<M>() << endl
+             << endl;
     }
 };

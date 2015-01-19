@@ -50,22 +50,23 @@ namespace {
 
 namespace SetTest {
     void test() {
-        std::cout   << XorY() << std::endl
-                    << XandY() << std::endl
-                    << YandZ() << std::endl
-                    << std::endl
+        using namespace std;
+        cout << XorY() << endl
+             << XandY() << endl
+             << YandZ() << endl
+             << std::endl
         
-                    << XprodY() << std::endl
-                    << ZprodZ() << std::endl
-                    << std::endl
+             << XprodY() << endl
+             << ZprodZ() << endl
+             << std::endl
         
-                    << Mapped() << std::endl
-                    << std::endl
+             << Mapped() << endl
+             << endl
         
-                    << In<A, X>() << std::endl
-                    << In<E, X>() << std::endl
-                    << In<A, Z>() << std::endl
-                    << In<E, Y>() << std::endl
-                    << std::endl;
+             << In<A, X>() << endl
+             << In<E, X>() << endl
+             << In<A, Z>() << endl
+             << In<E, Y>() << endl
+             << endl;
     }
 };
