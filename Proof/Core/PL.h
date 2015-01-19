@@ -125,6 +125,15 @@ namespace Axiom {
             return Formula<Q, MakeAssumptions<Gamma ..., Delta ...>>();
         }
         
+        // Gamma |- ⊥ --> Gamma |- P
+        template <typename P, typename ... Gamma, requires(AreProps<P>)>
+        static auto contradiction(const Formula<Contradiction, Assumptions<Gamma ...>> &)
+        -> Formula<P, Assumptions<Gamma ...>>
+        {
+            fulfill(AreProps<P>);
+            return Formula<P, Assumptions<Gamma ...>>();
+        }
+        
 #ifdef IS_CLASSICAL
         // Law of excluded middle
         // {} |- P\/-P
