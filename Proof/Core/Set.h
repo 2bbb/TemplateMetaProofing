@@ -18,7 +18,7 @@ namespace Types {
 #define Element(name) CreateVariable(name, Types::AbstractElement)
 
 template <typename ... As>
-struct Set : Types::Set {
+struct Set : public Types::Set {
     using type = MakeUnique<As ...>;
 };
 
@@ -226,4 +226,4 @@ namespace {
 };
 
 template <typename A, typename B>
-using EqualSet = Reduction<equal_set_impl<A, B>>;
+Function(Set->Set->Bool) EqualSet = Reduction<equal_set_impl<A, B>>;
