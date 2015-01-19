@@ -94,9 +94,9 @@
 			isa = PBXGroup;
 			children = (
 				9550F5DC1A669B8F00DE8928 /* Includes.h */,
+				9550F5DD1A669B8F00DE8928 /* Macros.h */,
 				9550F5D81A669B8F00DE8928 /* Constants.h */,
 				9550F5E31A669B8F00DE8928 /* Utilities.h */,
-				9550F5DD1A669B8F00DE8928 /* Macros.h */,
 				9550F5DE1A669B8F00DE8928 /* Meta.h */,
 				9561F1B31A69BCAE0093E1F6 /* Types.h */,
 				9550F5E21A669B8F00DE8928 /* Set.h */,
