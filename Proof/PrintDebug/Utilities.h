@@ -12,14 +12,6 @@
 
 #include "Core/Includes.h"
 
-#include "PrintDebug/Set.h"
-#include "PrintDebug/Assumptions.h"
-#include "PrintDebug/Formula.h"
-#include "PrintDebug/PL.h"
-#include "PrintDebug/FOL.h"
-#include "PrintDebug/Eq.h"
-#include "PrintDebug/Nat.h"
-
 namespace {
     template <typename T, typename NameGetter>
     class has_member_impl {
@@ -41,20 +33,20 @@ namespace {
     using HasVal = Reduction<has_member_impl<T, check_has_val>>;
 };
 
-//// Why does this run by wrapping by the `namespace Types`?
+// Why does this run by wrapping by the `namespace Types`?
 //namespace Types {
-//    template <typename P>
-//    Meta::If<HasVal<P>, std::ostream &> operator<<(std::ostream &os, const P &) {
-//        os << P::val();
-//        return os;
-//    }
+    template <typename P>
+    Meta::If<HasVal<P>, std::ostream &> operator<<(std::ostream &os, const P &) {
+        os << P::val();
+        return os;
+    }
 //};
 
-template <typename P>
-std::ostream &operator<<(std::ostream &os, const Meta::If<HasVal<P>, P> &) {
-    os << P::val();
-    return os;
-}
+//template <typename P>
+//std::ostream &operator<<(std::ostream &os, const Meta::If<HasVal<P>, P> &) {
+//    os << P::val();
+//    return os;
+//}
 
 template <typename A, typename B, typename ... Bs>
 std::ostream &operator<<(std::ostream &os, const TypeHolder<A, B, Bs ...> &) {
@@ -83,3 +75,11 @@ std::ostream &operator<<(std::ostream &os, const Tuple<As ...> &) {
     os << "(" << TypeHolder<As ...>() << ")";
     return os;
 }
+
+#include "PrintDebug/Set.h"
+#include "PrintDebug/Assumptions.h"
+#include "PrintDebug/Formula.h"
+#include "PrintDebug/PL.h"
+#include "PrintDebug/FOL.h"
+#include "PrintDebug/Eq.h"
+#include "PrintDebug/Nat.h"

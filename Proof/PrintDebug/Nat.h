@@ -11,27 +11,25 @@
 #include "PrintDebug/Utilities.h"
 #include "Core/Nat.h"
 
-namespace Nat {
-    std::ostream &operator<<(std::ostream &os, const Zero &) {
-        os << "zero";
-        return os;
-    }
+std::ostream &operator<<(std::ostream &os, const Nat::Zero &) {
+    os << "zero";
+    return os;
+}
 
-    template <typename T, typename S = Enable<IsNat<T>>>
-    std::ostream &operator<<(std::ostream &os, const Suc<T> &) {
-        os << "s(" << T() << ")";
-        return os;
-    }
+template <typename T, typename S = Enable<Nat::IsNat<T>>>
+std::ostream &operator<<(std::ostream &os, const Nat::Suc<T> &) {
+    os << "s(" << T() << ")";
+    return os;
+}
 
-    template <typename M, typename N, typename S = Enable<Meta::And<IsNat<M>, IsNat<N>>>>
-    std::ostream &operator<<(std::ostream &os, const Add<M, N> &) {
-        os << "(" << M() << ") + (" << N() << ")";
-        return os;
-    }
+template <typename M, typename N, typename S = Enable<Meta::And<Nat::IsNat<M>, Nat::IsNat<N>>>>
+std::ostream &operator<<(std::ostream &os, const Nat::Add<M, N> &) {
+    os << "(" << M() << ") + (" << N() << ")";
+    return os;
+}
 
-    template <typename M, typename N, typename S = Enable<Meta::And<IsNat<M>, IsNat<N>>>>
-    std::ostream &operator<<(std::ostream &os, const Mul<M, N> &) {
-        os << "(" << M() << ") * (" << N() << ")";
-        return os;
-    }
-};
+template <typename M, typename N, typename S = Enable<Meta::And<Nat::IsNat<M>, Nat::IsNat<N>>>>
+std::ostream &operator<<(std::ostream &os, const Nat::Mul<M, N> &) {
+    os << "(" << M() << ") * (" << N() << ")";
+    return os;
+}
