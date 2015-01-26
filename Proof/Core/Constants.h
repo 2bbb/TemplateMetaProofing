@@ -14,14 +14,21 @@ namespace Types {
     struct Kind {};
 };
 
+namespace Meta {
+    struct True;
+    struct False;
+};
+
 DeclareType(Bool);
 
 namespace Meta {
-    struct True  : public Types::Bool {
+    struct True {
+        SetType(Bool);
         using type = True;
         static const char * const val() { return "T"; }
     };
-    struct False : public Types::Bool {
+    struct False {
+        SetType(Bool);
         using type = False;
         static const char * const val() { return "F"; }
     };
@@ -40,3 +47,18 @@ namespace {
 
 template <typename A>
 using IsBool = typename is_bool_impl<A>::type;
+
+namespace Meta {
+    template <typename T>
+    struct AssertValue;
+    
+    template <>
+    struct AssertValue<True> {
+        static const bool value = true;
+    };
+    
+    template <>
+    struct AssertValue<False> {
+        static const bool value = false;
+    };
+};

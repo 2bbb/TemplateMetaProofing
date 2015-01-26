@@ -17,11 +17,10 @@ struct Assert;
 template <typename A>
 struct Assert<A, A> {};
 
-template <typename>
-struct Enable;
-
-template <>
-struct Enable<Meta::True> {};
+template <typename T>
+struct Enable {
+    static_assert(Meta::AssertValue<T>::value, "Can not Enable.");
+};
 
 template <typename T>
 using Reduction = typename T::type;
@@ -51,7 +50,9 @@ using IsDerived = Reduction<is_derived_impl<Derived, Base>>;
 DeclareType(TypeHolder);
 
 template <typename ...>
-struct TypeHolder : public Types::TypeHolder {};
+struct TypeHolder {
+    SetType(TypeHolder);
+};
 
 namespace {
     template <template <typename ...> class Template, typename A>
@@ -68,10 +69,14 @@ Function() RewrapTypeHolder = Reduction<rewrap_typeholder_impl<Template, A>>;
 
 DeclareType(Pair);
 
-struct Null : public Types::Pair {};
+struct Null {
+    SetType(Pair);
+};
 
 template <typename A, typename B>
-struct Pair : public Types::Pair {};
+struct Pair : public Types::Pair {
+    SetType(Pair);
+};
 
 namespace {
     struct inner_null {};
@@ -82,7 +87,9 @@ namespace {
 DeclareType(Tuple);
 
 template <typename ...>
-struct Tuple : public Types::Tuple {};
+struct Tuple {
+    SetType(Tuple);
+};
 
 namespace {
     template <typename ...>

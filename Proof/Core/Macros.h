@@ -15,10 +15,17 @@
 #define Requires(...) __VA_ARGS__, _
 #define fulfill(...) _();
 
-#define CreateVariable(name, type) struct name : public type { static const char * const val() { return #name; } };
+#define CreateVariable(name, type) struct name {\
+    using IsType = Meta::False;\
+    using TypeInfo = type;\
+    static const char * const val() { return #name; }\
+};\
 
 #define DeclareType(type) namespace Types {\
     struct type : public Types::Kind {\
         using TypeInfo = type;\
+        using IsType = Meta::True;\
     };\
 };
+
+#define SetType(type) using TypeInfo = Types::type;

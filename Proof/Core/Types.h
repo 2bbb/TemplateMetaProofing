@@ -12,10 +12,13 @@
 #include "Core/Meta.h"
 
 template <typename T>
+using IsType = typename T::IsType;
+
+template <typename T>
 using TypeOf = typename T::TypeInfo;
 
 template <typename X, typename T>
-using HasType = Meta::And<IsDerived<T, Types::Kind>, IsDerived<X, T>>;
+using HasType = Meta::And<IsType<T>, Meta::Equal<TypeOf<X>, T>>;
 
 template <typename X, typename Y>
 using IsSameType = Meta::Equal<TypeOf<X>, TypeOf<Y>>;
