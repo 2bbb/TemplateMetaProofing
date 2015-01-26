@@ -10,14 +10,8 @@
 
 #include "Core/Includes.h"
 
-namespace Types {
-    struct AbstractElement : public Types::Kind {
-        using TypeInfo = Types::AbstractElement;
-    };
-    struct Set : public Types::Kind {
-        using TypeInfo = Types::Set;
-    };
-};
+DeclareType(AbstractElement);
+DeclareType(Set);
 
 #define Element(name) CreateVariable(name, Types::AbstractElement)
 
