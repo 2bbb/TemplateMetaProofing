@@ -16,7 +16,7 @@ DeclareType(Set);
 #define Element(name) CreateVariable(name, Types::AbstractElement)
 
 template <typename ... As>
-struct Set : public Types::Set, Enable<AreSameType<As ...>> {
+struct Set : public Enable<AreSameType<As ...>> {
     using type = MakeUnique<As ...>;
 };
 

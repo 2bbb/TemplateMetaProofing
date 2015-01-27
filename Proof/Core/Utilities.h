@@ -30,7 +30,7 @@ using Eval = typename T::value;
 
 namespace {
 	template <typename D, typename B>
-    struct is_derived_impl : public Types::Bool {
+    struct is_derived_impl {
 		template <typename T>
 		static Meta::True check(D &, T);
         static Meta::False check(B &, int);
@@ -74,7 +74,7 @@ struct Null {
 };
 
 template <typename A, typename B>
-struct Pair : public Types::Pair {
+struct Pair {
     SetType(Pair);
 };
 
